@@ -80,6 +80,9 @@ export default {
 .change_color {
   background-color: #2d353f;
 }
+.shadow-down {
+  box-shadow: 2px 2px 5px #1b1b1b;
+}
 @media (max-width: 992px) {
   .navbar {
     background-color: #2d353f !important;
