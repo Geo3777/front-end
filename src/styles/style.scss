@@ -1,0 +1,23 @@
+$theme-colors: (
+  "primary": #1266f1,
+  "secondary": #d1d1d1,
+  "success": #00b74a,
+  "info": #39c0ed,
+  "warning": #ffa900,
+  "danger": #f93154,
+  "light": #fbfbfbde,
+  "dark": #222222,
+  "mistic": #2d353f,
+  "dmistic": #1a1f27,
+  "lmistic": #3f4b5a,
+);
+.navbar {
+  .nav-link {
+    font-size: 1.3rem;
+    padding-right: 1.4rem;
+  }
+  .navbar-brand {
+    font-size: 1.8rem;
+  }
+}
+@import "../../node_modules/bootstrap/scss/bootstrap";
