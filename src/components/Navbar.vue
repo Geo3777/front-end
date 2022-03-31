@@ -30,8 +30,11 @@
           class="navbar-nav ms-auto d-flex align-items-center justify-content-center"
         >
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="FrontPage.html"
-              >Home</a
+            <router-link
+              :to="{ name: 'home' }"
+              class="nav-link"
+              active-class="active"
+              >Home</router-link
             >
           </li>
           <li class="nav-item">
