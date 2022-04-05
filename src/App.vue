@@ -21,4 +21,13 @@ export default {
 body {
   background-color: #1a1f27;
 }
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ffa900;
+}
 </style>

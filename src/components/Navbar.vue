@@ -38,19 +38,44 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="carPage.html">Cars</a>
+            <router-link
+              :to="{ name: 'cars' }"
+              class="nav-link"
+              active-class="active"
+              >Cars</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="AboutUs.html">About Us</a>
+            <router-link
+              :to="{ name: 'aboutUs' }"
+              class="nav-link"
+              active-class="active"
+              >About Us</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="ContactUs.html">Contact Us</a>
+            <router-link
+              :to="{ name: 'contactUs' }"
+              class="nav-link"
+              active-class="active"
+              >Contact Us</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Terms.html">Terms And Conditions</a>
+            <router-link
+              :to="{ name: 'terms' }"
+              class="nav-link"
+              active-class="active"
+              >Terms And Conditions</router-link
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Admin.html">Admin</a>
+            <router-link
+              :to="{ name: 'admin' }"
+              class="nav-link"
+              active-class="active"
+              >Admin</router-link
+            >
           </li>
           <li class="nav-item mx-auto">
             <button class="btn btn-warning">Log In</button>
