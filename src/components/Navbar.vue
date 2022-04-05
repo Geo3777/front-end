@@ -78,7 +78,7 @@
             >
           </li>
           <li class="nav-item mx-auto">
-            <button class="btn btn-warning">Log In</button>
+            <button class="btn btn-warning">Sign In</button>
           </li>
         </ul>
       </div>

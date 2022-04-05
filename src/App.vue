@@ -22,10 +22,11 @@ body {
   background-color: #1a1f27;
 }
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   border-radius: 10px;
+  background-color: #434f5f;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #ffa900;

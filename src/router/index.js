@@ -56,6 +56,14 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    redirect: "/",
+    meta: {
+      requiresAuth: false,
+    },
+  },
 ];
 
 const router = createRouter({
