@@ -6,6 +6,8 @@ import ContactUs from "../views/ContactUs.vue";
 import Terms from "../views/Terms.vue";
 import Admin from "../views/Admin/Admin.vue";
 import AdminUsers from "../views/Admin/AdminUsers.vue";
+import AdminCars from "../views/Admin/AdminCars.vue";
+import AdminAppointments from "../views/Admin/AdminAppointments.vue";
 const routes = [
   {
     path: "/",
@@ -41,6 +43,16 @@ const routes = [
         path: "/admin/users",
         name: "users",
         component: AdminUsers,
+      },
+      {
+        path: "/admin/cars",
+        name: "acars",
+        component: AdminCars,
+      },
+      {
+        path: "/admin/appointments",
+        name: "appointments",
+        component: AdminAppointments,
       },
     ],
   },

@@ -886,25 +886,25 @@
             <section>
               <h4>Location</h4>
               <div class="form-group py-2">
-                <label for="deliveryA"
+                <label for="deliveryA" class="lead"
                   >Car Delivery Address(Only In Brasov)</label
                 >
                 <input
                   type="text"
                   class="form-control bg-dmistic text-light"
                   id="deliveryA"
-                  placeholder="Enter City, Street, Number"
+                  placeholder="Street and Number"
                 />
               </div>
               <div class="form-group py-2">
-                <label for="deliveryP"
+                <label for="deliveryP" class="lead"
                   >Car Pick-Up Address(Only In Brasov)</label
                 >
                 <input
                   type="text"
                   class="form-control bg-dmistic text-light"
                   id="deliveryP"
-                  placeholder="Enter City, Street, Number"
+                  placeholder="Street and Number"
                 />
               </div>
             </section>
@@ -913,7 +913,9 @@
             <section>
               <h4>Date & Time</h4>
               <div class="form-group py-2">
-                <label for="datetimepicker1">Car Delivery Time</label>
+                <label for="datetimepicker1" class="lead"
+                  >Car Delivery Time</label
+                >
                 <input
                   class="bg-dmistic text-light w-100 form-control p-2"
                   type="datetime-local"
@@ -922,7 +924,9 @@
                 />
               </div>
               <div class="form-group py-2">
-                <label for="datetimepicker2">Car Pick-Up Time</label>
+                <label for="datetimepicker2" class="lead"
+                  >Car Pick-Up Time</label
+                >
                 <input
                   class="bg-dmistic text-light w-100 form-control p-2"
                   type="datetime-local"
@@ -935,6 +939,7 @@
             <!-- payment -->
             <section>
               <h4>Payment</h4>
+              <p class="lead">Total Payment: €300</p>
               <!-- switch -->
               <div class="switching py-2 d-flex">
                 <p class="lead me-2">cash</p>
@@ -949,7 +954,7 @@
               <div class="row">
                 <div class="col-12">
                   <div class="form-group py-2">
-                    <label for="nameC">Person Name</label>
+                    <label for="nameC" class="lead">Person Name</label>
                     <input
                       class="bg-dmistic text-light w-100 form-control p-2"
                       type="text"
@@ -961,7 +966,7 @@
                 </div>
                 <div class="col-12">
                   <div class="form-group py-2">
-                    <label for="cardN">Card Number</label>
+                    <label for="cardN" class="lead">Card Number</label>
                     <input
                       class="bg-dmistic text-light w-100 form-control p-2"
                       type="text"
@@ -973,7 +978,9 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group py-2">
-                    <label for="datetimepicker3">Expire Date</label>
+                    <label for="datetimepicker3" class="lead"
+                      >Expire Date</label
+                    >
                     <input
                       class="bg-dmistic text-light w-100 form-control p-2"
                       type="month"
@@ -984,7 +991,7 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group py-2">
-                    <label for="cardCV">CVV/CVC</label>
+                    <label for="cardCV" class="lead">CVV/CVC</label>
                     <input
                       class="bg-dmistic text-light w-100 form-control p-2"
                       type="password"
@@ -996,6 +1003,12 @@
                 </div>
               </div>
             </section>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" />
+              <label class="form-check-label">
+                I agree to Royal Car Rental Terms And Condtions!
+              </label>
+            </div>
           </form>
         </div>
         <div class="modal-footer">

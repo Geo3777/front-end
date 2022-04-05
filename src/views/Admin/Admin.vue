@@ -21,7 +21,7 @@
         <router-link
           class="display-6 text-light"
           style="text-decoration: none"
-          :to="{ name: 'users' }"
+          :to="{ name: 'acars' }"
           >Cars</router-link
         >
       </div>
@@ -29,7 +29,7 @@
         <router-link
           class="display-6 text-light"
           style="text-decoration: none"
-          :to="{ name: 'users' }"
+          :to="{ name: 'appointments' }"
           >Appointments</router-link
         >
       </div>

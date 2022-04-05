@@ -39,8 +39,12 @@
           placeholder="Street, Number, City, Country"
         />
       </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" />
+        <label class="form-check-label"> Admin </label>
+      </div>
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary my-2 py-1">Submit</button>
+        <button type="submit" class="btn btn-warning my-2 py-1">Submit</button>
       </div>
     </form>
   </div>
@@ -49,11 +53,12 @@
       <table class="table table-hover table-dark">
         <thead style="min-height: 220px">
           <tr style="min-height: 220px">
-            <th scope="col" class="text-center">#</th>
-            <th scope="col" class="text-center">email</th>
-            <th scope="col" class="text-center">Password</th>
-            <th scope="col" class="text-center">Full Name</th>
-            <th scope="col" class="text-center">Address</th>
+            <th scope="col" class="">#</th>
+            <th scope="col" class="">email</th>
+            <th scope="col" class="">Password</th>
+            <th scope="col" class="">Full Name</th>
+            <th scope="col" class="">Address</th>
+            <th scope="col" class="">Admin</th>
             <th></th>
             <th></th>
           </tr>
@@ -65,6 +70,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -74,6 +80,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -83,6 +90,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -92,6 +100,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -101,6 +110,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -110,6 +120,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -119,6 +130,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -128,6 +140,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -137,6 +150,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
@@ -146,6 +160,7 @@
             <td>asdf123456789</td>
             <td>Mark Smith</td>
             <td>Tarnavei, 64A, Medias, Romania</td>
+            <td>True</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
           </tr>
