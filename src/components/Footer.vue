@@ -18,19 +18,29 @@
           <div class="col-md-3 col-lg-2 mx-auto mb-4 hovering">
             <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
             <p>
-              <a href="#!" class="muted">Home</a>
+              <router-link :to="{ name: 'home' }" class="muted"
+                >Home</router-link
+              >
             </p>
             <p>
-              <a href="#!" class="muted">Cars</a>
+              <router-link :to="{ name: 'cars' }" class="muted"
+                >Cars</router-link
+              >
             </p>
             <p>
-              <a href="#!" class="muted">About Us</a>
+              <router-link :to="{ name: 'aboutUs' }" class="muted"
+                >About Us</router-link
+              >
             </p>
             <p>
-              <a href="#!" class="muted">Contact Us</a>
+              <router-link :to="{ name: 'contactUs' }" class="muted"
+                >Contact Us</router-link
+              >
             </p>
             <p>
-              <a href="#!" class="muted">Terms And Conditions</a>
+              <router-link :to="{ name: 'terms' }" class="muted"
+                >Terms And Conditions</router-link
+              >
             </p>
           </div>
           <div class="col-md-4 col-lg-3 mx-auto mb-4">
