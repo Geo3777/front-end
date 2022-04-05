@@ -262,7 +262,9 @@
             on our list too!
           </p>
           <div class="w-100 d-flex justify-content-center my-3">
-            <button class="btn btn-mistic btn-lg">See Our Cars!</button>
+            <button class="btn btn-mistic btn-lg" @click="navigateCars">
+              See Our Cars!
+            </button>
           </div>
         </div>
         <div class="col-lg-4 d-none d-lg-block">
@@ -296,7 +298,9 @@
             work, because we love our job.
           </p>
           <div class="w-100 d-flex justify-content-center my-3">
-            <button class="btn btn-warning btn-lg">Learn More!</button>
+            <button class="btn btn-warning btn-lg" @click="navigateAboutUs">
+              Learn More!
+            </button>
           </div>
         </div>
       </div>
@@ -314,7 +318,9 @@
             to contact us.
           </p>
           <div class="w-100 d-flex justify-content-center my-3">
-            <button class="btn btn-mistic btn-lg">Contact Us!</button>
+            <button class="btn btn-mistic btn-lg" @click="navigateContactUs">
+              Contact Us!
+            </button>
           </div>
         </div>
         <div class="col-lg-4 d-none d-lg-block">
@@ -330,7 +336,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    navigateCars() {
+      this.$router.push({ name: "cars" });
+    },
+    navigateAboutUs() {
+      this.$router.push({ name: "aboutUs" });
+    },
+    navigateContactUs() {
+      this.$router.push({ name: "contactUs" });
+    },
+  },
+};
 </script>
 
 <style scoped>
