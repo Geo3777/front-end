@@ -8,6 +8,9 @@ import Admin from "../views/Admin/Admin.vue";
 import AdminUsers from "../views/Admin/AdminUsers.vue";
 import AdminCars from "../views/Admin/AdminCars.vue";
 import AdminAppointments from "../views/Admin/AdminAppointments.vue";
+import Account from "../views/Account/Account.vue";
+import SignIn from "../views/Account/SignIn.vue";
+import Register from "../views/Account/Register.vue";
 const routes = [
   {
     path: "/",
@@ -53,6 +56,23 @@ const routes = [
         path: "/admin/appointments",
         name: "appointments",
         component: AdminAppointments,
+      },
+    ],
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: Account,
+    children: [
+      {
+        path: "/account/signIn",
+        name: "signIn",
+        component: SignIn,
+      },
+      {
+        path: "/account/register",
+        name: "register",
+        component: Register,
       },
     ],
   },

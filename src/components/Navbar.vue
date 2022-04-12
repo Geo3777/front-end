@@ -71,14 +71,19 @@
           </li>
           <li class="nav-item">
             <router-link
-              :to="{ name: 'admin' }"
+              :to="{ name: 'users' }"
               class="nav-link"
               active-class="active"
               >Admin</router-link
             >
           </li>
           <li class="nav-item mx-auto">
-            <button class="btn btn-warning">Sign In</button>
+            <router-link
+              style="text-decoration: none"
+              class="btn btn-warning"
+              :to="{ name: 'signIn' }"
+              >Sign In</router-link
+            >
           </li>
         </ul>
       </div>
