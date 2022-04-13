@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-4 text-light p-0 m-0">
     <h1 class="text-warning text-center py-2 bg-dmistic px-0 mx-0">
-      Add A Car
+      {{ message }}
     </h1>
     <form action="" class="px-4">
       <div class="form-group">
@@ -10,6 +10,7 @@
           type="text"
           class="form-control bg-dmistic text-light"
           placeholder="Audi A6"
+          v-model="car.CarBrandAndModel"
         />
       </div>
       <div class="form-group">
@@ -17,8 +18,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="120"
+          v-model="car.Price"
         />
       </div>
       <div class="form-group">
@@ -26,8 +27,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="Sedan"
+          v-model="car.CarType"
         />
       </div>
       <div class="form-group">
@@ -35,8 +36,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="Diesel"
+          v-model="car.FuelType"
         />
       </div>
       <div class="form-group">
@@ -44,8 +45,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="Automatic"
+          v-model="car.Transmision"
         />
       </div>
       <div class="form-group">
@@ -53,8 +54,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="2000"
+          v-model="car.EngineCapacity"
         />
       </div>
       <div class="form-group">
@@ -62,8 +63,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="2022"
+          v-model="car.Year"
         />
       </div>
       <div class="form-group">
@@ -71,8 +72,16 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="AWD"
+          v-model="car.Traction"
+        />
+      </div>
+      <div class="">
+        <label for="formFile" class="form-label lead">Upload A Picture</label>
+        <input
+          class="form-control bg-dmistic text-light"
+          type="file"
+          id="formFile"
         />
       </div>
       <div class="d-grid gap-2">
@@ -99,200 +108,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>Audi A6</td>
-            <td>150</td>
-            <td>Sedan</td>
-            <td>Diesel</td>
-            <td>Automatic</td>
-            <td>2000</td>
-            <td>2017</td>
-            <td>FWD</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
+          <tr v-for="(car, index) in cars" v-bind:key="index">
+            <td>{{ car.id }}</td>
+            <td>{{ car.CarBrandAndModel }}</td>
+            <td>{{ car.Price }}</td>
+            <td>{{ car.CarType }}</td>
+            <td>{{ car.FuelType }}</td>
+            <td>{{ car.Transmision }}</td>
+            <td>{{ car.EngineCapacity }}</td>
+            <td>{{ car.Year }}</td>
+            <td>{{ car.Traction }}</td>
+            <td><button class="btn btn-danger">Delete</button></td>
+            <td><button class="btn btn-primary">Update</button></td>
           </tr>
         </tbody>
       </table>
@@ -301,7 +128,40 @@
 </template>
 
 <script>
-export default {};
+import db from "../../fb";
+function getRandomIntInclusive() {
+  var min = 0;
+  var max = 100000000000;
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
+export default {
+  data() {
+    return {
+      cars: [],
+      car: {
+        id: "",
+        CarBrandAndModel: "",
+        Price: "",
+        CarType: " ",
+        FuelType: "",
+        Transmision: "",
+        EngineCapacity: "",
+        Year: "",
+        Traction: "",
+      },
+      message: "Add A Car",
+    };
+  },
+  methods: {},
+  created() {
+    db.collection("cars").onSnapshot((snap) => {
+      this.cars = [];
+      snap.forEach((doc) => {
+        this.cars.push(doc.data());
+      });
+    });
+  },
+};
 </script>
 
 <style scoped>
