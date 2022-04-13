@@ -77,11 +77,12 @@
         />
       </div>
       <div class="">
-        <label for="formFile" class="form-label lead">Upload A Picture</label>
+        <label class="form-label lead">Upload A Picture</label>
         <input
-          class="form-control bg-dmistic text-light"
+          class="form-control bg-dmistic text-light input"
           type="file"
-          id="formFile"
+          id="image"
+          @change="encodeImageFileAsURL()"
         />
       </div>
       <div class="d-grid gap-2">
@@ -137,7 +138,7 @@
 import db from "../../fb";
 function getRandomId() {
   var min = 0;
-  var max = 100000000000;
+  var max = 100000;
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
 export default {
@@ -175,18 +176,19 @@ export default {
       }
     },
     formSubmit() {
-      const newId = getRandomId().toString;
+      const newId = getRandomId();
       if (this.car.id == "") {
-        db.collection("cars").doc(newId).set({
-          id: newId,
+        db.collection("cars").doc(`${newId}`).set({
           CarBrandAndModel: this.car.CarBrandAndModel,
           CarType: this.car.CarType,
-          EngineCapacity: this.EngineCapacity,
+          EngineCapacity: this.car.EngineCapacity,
           FuelType: this.car.FuelType,
-          //Photo: this.car.Photo,
+          Photo: this.car.Photo,
           Price: this.car.Price,
+          Traction: this.car.Traction,
           Transmision: this.car.Transmision,
           Year: this.car.Year,
+          id: newId,
         });
       }
     },

@@ -63,6 +63,6 @@ export default {};
   height: 100%;
 }
 .inside {
-  width: 99.99%;
+  width: 100%;
 }
 </style>
