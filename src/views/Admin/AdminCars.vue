@@ -3,7 +3,7 @@
     <h1 class="text-warning text-center py-2 bg-dmistic px-0 mx-0">
       {{ message }}
     </h1>
-    <form action="" class="px-4">
+    <form action="javascript:void(0)" class="px-4">
       <div class="form-group">
         <label class="lead">Car Brand And Model</label>
         <input
@@ -85,7 +85,13 @@
         />
       </div>
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-warning my-2 py-1">Submit</button>
+        <button
+          @click="formSubmit"
+          type="submit"
+          class="btn btn-warning my-2 py-1"
+        >
+          Submit
+        </button>
       </div>
     </form>
   </div>
@@ -129,7 +135,7 @@
 
 <script>
 import db from "../../fb";
-function getRandomIntInclusive() {
+function getRandomId() {
   var min = 0;
   var max = 100000000000;
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
@@ -152,7 +158,39 @@ export default {
       message: "Add A Car",
     };
   },
-  methods: {},
+  methods: {
+    encodeImageFileAsURL() {
+      const file = document.querySelector("input[type=file]").files[0];
+      const reader = new FileReader();
+      var that = this;
+      reader.addEventListener(
+        "load",
+        function () {
+          that.car.Photo = reader.result;
+        },
+        false
+      );
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    },
+    formSubmit() {
+      const newId = getRandomId().toString;
+      if (this.car.id == "") {
+        db.collection("cars").doc(newId).set({
+          id: newId,
+          CarBrandAndModel: this.car.CarBrandAndModel,
+          CarType: this.car.CarType,
+          EngineCapacity: this.EngineCapacity,
+          FuelType: this.car.FuelType,
+          //Photo: this.car.Photo,
+          Price: this.car.Price,
+          Transmision: this.car.Transmision,
+          Year: this.car.Year,
+        });
+      }
+    },
+  },
   created() {
     db.collection("cars").onSnapshot((snap) => {
       this.cars = [];
