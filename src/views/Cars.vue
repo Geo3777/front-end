@@ -41,32 +41,26 @@
                   <p>€/Day</p>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text bg-warning"
-                        id="inputGroup-sizing-default"
-                        >Min</span
-                      >
+                      <span class="input-group-text bg-warning">Min</span>
                     </div>
                     <input
                       type="text"
                       class="form-control bg-dmistic text-light"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      v-model="filters.priceRange.minPrice"
                     />
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text bg-warning"
-                        id="inputGroup-sizing-default"
-                        >Max</span
-                      >
+                      <span class="input-group-text bg-warning">Max</span>
                     </div>
                     <input
                       type="text"
                       class="form-control bg-dmistic text-light"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      v-model="filters.priceRange.maxPrice"
                     />
                   </div>
                 </div>
@@ -98,7 +92,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="sedan"
-                      checked
+                      v-model="filters.vehicleType.sedan"
                     />
                     <label class="form-check-label" for="sedan">Sedan</label>
                   </div>
@@ -107,7 +101,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="break"
-                      checked
+                      v-model="filters.vehicleType.hatchback"
                     />
                     <label class="form-check-label" for="break"
                       >Hatchback</label
@@ -118,7 +112,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="suv"
-                      checked
+                      v-model="filters.vehicleType.suv"
                     />
                     <label class="form-check-label" for="suv">SUV</label>
                   </div>
@@ -127,7 +121,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="sport"
-                      checked
+                      v-model="filters.vehicleType.sport"
                     />
                     <label class="form-check-label" for="sport">Sport</label>
                   </div>
@@ -136,7 +130,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="van"
-                      checked
+                      v-model="filters.vehicleType.van"
                     />
                     <label class="form-check-label" for="van">Van</label>
                   </div>
@@ -169,7 +163,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="petrol"
-                      checked
+                      v-model="filters.fuelType.petrol"
                     />
                     <label class="form-check-label" for="petrol">Petrol</label>
                   </div>
@@ -178,7 +172,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="diesel"
-                      checked
+                      v-model="filters.fuelType.diesel"
                     />
                     <label class="form-check-label" for="diesel">Diesel</label>
                   </div>
@@ -187,7 +181,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="electric"
-                      checked
+                      v-model="filters.fuelType.electric"
                     />
                     <label class="form-check-label" for="electric"
                       >Electric</label
@@ -222,7 +216,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="manual"
-                      checked
+                      v-model="filters.transmission.manual"
                     />
                     <label class="form-check-label" for="manual">Manual</label>
                   </div>
@@ -231,7 +225,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="automatic"
-                      checked
+                      v-model="filters.transmission.automatic"
                     />
                     <label class="form-check-label" for="automatic"
                       >Automatic</label
@@ -263,32 +257,26 @@
                 <div class="accordion-body bg-mistic">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text bg-warning"
-                        id="inputGroup-sizing-default"
-                        >Min</span
-                      >
+                      <span class="input-group-text bg-warning">Min</span>
                     </div>
                     <input
                       type="text"
                       class="form-control bg-dmistic text-light"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      v-model="filters.engineCapacity.minEngine"
                     />
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text bg-warning"
-                        id="inputGroup-sizing-default"
-                        >Max</span
-                      >
+                      <span class="input-group-text bg-warning">Max</span>
                     </div>
                     <input
                       type="text"
                       class="form-control bg-dmistic text-light"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      v-model="filters.engineCapacity.maxEngine"
                     />
                   </div>
                 </div>
@@ -317,32 +305,26 @@
                 <div class="accordion-body bg-mistic">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text bg-warning"
-                        id="inputGroup-sizing-default"
-                        >Min</span
-                      >
+                      <span class="input-group-text bg-warning">Min</span>
                     </div>
                     <input
                       type="text"
                       class="form-control bg-dmistic text-light"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      v-model="filters.year.minYear"
                     />
                   </div>
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span
-                        class="input-group-text bg-warning"
-                        id="inputGroup-sizing-default"
-                        >Max</span
-                      >
+                      <span class="input-group-text bg-warning">Max</span>
                     </div>
                     <input
                       type="text"
                       class="form-control bg-dmistic text-light"
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
+                      v-model="filters.year.maxYear"
                     />
                   </div>
                 </div>
@@ -374,7 +356,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="FWD"
-                      checked
+                      v-model="filters.traction.fwd"
                     />
                     <label class="form-check-label" for="FWD">FWD</label>
                   </div>
@@ -383,7 +365,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="RWD"
-                      checked
+                      v-model="filters.traction.rwd"
                     />
                     <label class="form-check-label" for="RWD">RWD</label>
                   </div>
@@ -392,7 +374,7 @@
                       type="checkbox"
                       class="form-check-input filled-in"
                       id="AWD"
-                      checked
+                      v-model="filters.traction.awd"
                     />
                     <label class="form-check-label" for="AWD">AWD</label>
                   </div>
@@ -481,6 +463,41 @@ export default {
   data() {
     return {
       cars: [],
+      filters: {
+        priceRange: {
+          minPrice: 40,
+          maxPrice: 300,
+        },
+        vehicleType: {
+          sedan: true,
+          hatchback: true,
+          suv: true,
+          sport: true,
+          van: true,
+        },
+        fuelType: {
+          petrol: true,
+          diesel: true,
+          electric: true,
+        },
+        transmission: {
+          manual: true,
+          automatic: true,
+        },
+        engineCapacity: {
+          minEngine: 0,
+          maxEngine: 5000,
+        },
+        year: {
+          minYear: 1990,
+          maxYear: 2030,
+        },
+        traction: {
+          fwd: true,
+          rwd: true,
+          awd: true,
+        },
+      },
     };
   },
   components: {
