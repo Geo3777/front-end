@@ -445,6 +445,7 @@
               <div class="row align-items-center justify-content-center">
                 <div class="card-group">
                   <!-- car -->
+                  <app-single-car></app-single-car>
                 </div>
               </div>
             </div>
@@ -456,10 +457,36 @@
 </template>
 
 <script>
-import Car from "../components/Car.vue";
+import SingleCar from "../components/SingleCar.vue";
+
+import db from "../fb";
 export default {
-  componets: {
-    appCar: Car,
+  data() {
+    return {
+      cars: [],
+      car: {
+        id: "",
+        CarBrandAndModel: "",
+        Price: "",
+        CarType: "",
+        FuelType: "",
+        Transmision: "",
+        EngineCapacity: "",
+        Year: "",
+        Traction: "",
+      },
+    };
+  },
+  components: {
+    appSingleCar: SingleCar,
+  },
+  created() {
+    db.collection("cars").onSnapshot((snap) => {
+      this.cars = [];
+      snap.forEach((doc) => {
+        this.cars.push(doc.data());
+      });
+    });
   },
 };
 </script>
