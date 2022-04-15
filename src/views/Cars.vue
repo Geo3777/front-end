@@ -445,7 +445,24 @@
               <div class="row align-items-center justify-content-center">
                 <div class="card-group">
                   <!-- car -->
-                  <app-single-car></app-single-car>
+                  <div
+                    class="col-lg-6 col-md-12 col-sm-12 p-3"
+                    v-for="(car, index) in cars"
+                    v-bind:key="index"
+                  >
+                    <app-single-car
+                      :carID="car.id"
+                      :carCarBrandAndModel="car.CarBrandAndModel"
+                      :carPrice="car.Price"
+                      :carCarType="car.CarType"
+                      :carFuelType="car.FuelType"
+                      :carPhoto="car.Photo"
+                      :carTransmision="car.Transmision"
+                      :carEngineCapacity="car.EngineCapacity"
+                      :carYear="car.Year"
+                      :carTraction="car.Traction"
+                    ></app-single-car>
+                  </div>
                 </div>
               </div>
             </div>
@@ -464,17 +481,6 @@ export default {
   data() {
     return {
       cars: [],
-      car: {
-        id: "",
-        CarBrandAndModel: "",
-        Price: "",
-        CarType: "",
-        FuelType: "",
-        Transmision: "",
-        EngineCapacity: "",
-        Year: "",
-        Traction: "",
-      },
     };
   },
   components: {

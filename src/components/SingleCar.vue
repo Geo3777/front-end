@@ -1,66 +1,70 @@
 <template>
   <div>
     <!-- car -->
-    <div class="col-lg-6 col-md-12 col-sm-12 p-3">
-      <div class="card w-100 h-100 bg-mistic" style="width: 18rem">
-        <img src="../assets/AudiA6.jpg" class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title display-6 text-center fw-bold">Audi A6</h5>
-          <h5 class="card-title text-center display-7 fw-bold">€145,50</h5>
-          <div class="card-text p-2">
-            <div class="row bg-lmistic">
-              <div
-                class="col carDetails d-flex align-items-center justify-content-center"
-              >
-                <p class="lead m-0 p-2">Sedan</p>
-              </div>
-              <div
-                class="col carDetails d-flex align-items-center justify-content-center"
-              >
-                <p class="lead m-0 p-2">Diesel</p>
-              </div>
-              <div
-                class="col carDetails d-flex align-items-center justify-content-center"
-              >
-                <p class="lead m-0 p-2">Automatic</p>
-              </div>
-            </div>
-            <div class="row bg-lmistic">
-              <div
-                class="col carDetails d-flex align-items-center justify-content-center"
-              >
-                <p class="lead m-0 p-2">2000cc</p>
-              </div>
-              <div
-                class="col carDetails d-flex align-items-center justify-content-center"
-              >
-                <p class="lead m-0 p-2">2017</p>
-              </div>
-              <div
-                class="col carDetails d-flex align-items-center justify-content-center"
-              >
-                <p class="lead m-0 p-2">FWD</p>
-              </div>
-            </div>
-          </div>
-          <div class="d-grid w-100">
-            <button
-              class="btn btn-warning btn-lg btn-fullW mt-2"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+
+    <div class="card w-100 h-100 bg-mistic" style="width: 18rem">
+      <img v-bind:src="carPhoto" class="card-img-top carImg" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title display-6 text-center fw-bold">
+          {{ carCarBrandAndModel }}
+        </h5>
+        <h5 class="card-title text-center display-7 fw-bold">
+          €{{ carPrice }}
+        </h5>
+        <div class="card-text p-2">
+          <div class="row bg-lmistic">
+            <div
+              class="col carDetails d-flex align-items-center justify-content-center"
             >
-              Rent It!
-            </button>
+              <p class="lead m-0 p-2">{{ carCarType }}</p>
+            </div>
+            <div
+              class="col carDetails d-flex align-items-center justify-content-center"
+            >
+              <p class="lead m-0 p-2">{{ carFuelType }}</p>
+            </div>
+            <div
+              class="col carDetails d-flex align-items-center justify-content-center"
+            >
+              <p class="lead m-0 p-2">{{ carTransmision }}</p>
+            </div>
           </div>
+          <div class="row bg-lmistic">
+            <div
+              class="col carDetails d-flex align-items-center justify-content-center"
+            >
+              <p class="lead m-0 p-2">{{ carEngineCapacity }}cc</p>
+            </div>
+            <div
+              class="col carDetails d-flex align-items-center justify-content-center"
+            >
+              <p class="lead m-0 p-2">{{ carYear }}</p>
+            </div>
+            <div
+              class="col carDetails d-flex align-items-center justify-content-center"
+            >
+              <p class="lead m-0 p-2">{{ carTraction }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="d-grid w-100">
+          <button
+            class="btn btn-warning btn-lg btn-fullW mt-2"
+            type="button"
+            data-bs-toggle="modal"
+            :data-bs-target="`#m${carID}`"
+          >
+            Rent It!
+          </button>
         </div>
       </div>
     </div>
+
     <!-- /car -->
     <!-- modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      :id="`m${carID}`"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -69,7 +73,9 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-mistic text-light">
           <div class="modal-header">
-            <h3 class="modal-title" id="exampleModalLabel">Audi A6 2019</h3>
+            <h3 class="modal-title" id="exampleModalLabel">
+              {{ carCarBrandAndModel }} {{ carYear }}
+            </h3>
             <button
               type="button"
               class="btn-close btn-close-white"
@@ -230,7 +236,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    carID: String,
+    carCarBrandAndModel: String,
+    carPrice: String,
+    carCarType: String,
+    carFuelType: String,
+    carTransmision: String,
+    carEngineCapacity: String,
+    carYear: String,
+    carTraction: String,
+    carPhoto: String,
+  },
+};
 </script>
 
 <style scoped>
@@ -303,5 +322,10 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+.carImg {
+  max-height: 200px;
+  min-height: 200px;
+  object-fit: cover;
 }
 </style>
