@@ -797,7 +797,7 @@
                       />
                       <div class="card-body">
                         <h5 class="card-title display-6 text-center fw-bold">
-                          Audi A6
+                          Audi A61
                         </h5>
                         <h5 class="card-title text-center display-7 fw-bold">
                           €145,50
