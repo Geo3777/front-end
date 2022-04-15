@@ -3,7 +3,12 @@
     <h1 class="text-warning text-center py-2 bg-dmistic px-0 mx-0">
       {{ message }}
     </h1>
-    <form action="javascript:void(0)" class="px-4">
+    <form
+      action="javascript:void(0)"
+      class="px-4"
+      ref="carForm"
+      @submit="formSubmit"
+    >
       <div class="form-group">
         <label class="lead">Car Brand And Model</label>
         <input
@@ -25,9 +30,9 @@
       <div class="form-group">
         <label class="lead">Car Type</label>
         <input
+          placeholder="Sedan"
           type="text"
           class="form-control bg-dmistic text-light"
-          placeholder="Sedan"
           v-model="car.CarType"
         />
       </div>
@@ -86,13 +91,7 @@
         />
       </div>
       <div class="d-grid gap-2">
-        <button
-          @click="formSubmit"
-          type="submit"
-          class="btn btn-warning my-2 py-1"
-        >
-          Submit
-        </button>
+        <button type="submit" class="btn btn-warning my-2 py-1">Submit</button>
       </div>
     </form>
   </div>
@@ -125,8 +124,16 @@
             <td>{{ car.EngineCapacity }}</td>
             <td>{{ car.Year }}</td>
             <td>{{ car.Traction }}</td>
-            <td><button class="btn btn-danger">Delete</button></td>
-            <td><button class="btn btn-primary">Update</button></td>
+            <td>
+              <button class="btn btn-danger" @click="deleteCar(car.id)">
+                Delete
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-primary" @click="updateCar(car)">
+                Update
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -149,7 +156,7 @@ export default {
         id: "",
         CarBrandAndModel: "",
         Price: "",
-        CarType: " ",
+        CarType: "",
         FuelType: "",
         Transmision: "",
         EngineCapacity: "",
@@ -175,22 +182,73 @@ export default {
         reader.readAsDataURL(file);
       }
     },
-    formSubmit() {
+    async formSubmit() {
       const newId = getRandomId();
+      //Daca nu are ID creem o masina
       if (this.car.id == "") {
-        db.collection("cars").doc(`${newId}`).set({
-          CarBrandAndModel: this.car.CarBrandAndModel,
-          CarType: this.car.CarType,
-          EngineCapacity: this.car.EngineCapacity,
-          FuelType: this.car.FuelType,
-          Photo: this.car.Photo,
-          Price: this.car.Price,
-          Traction: this.car.Traction,
-          Transmision: this.car.Transmision,
-          Year: this.car.Year,
-          id: newId,
-        });
+        db.collection("cars")
+          .doc(`${newId}`)
+          .set({
+            CarBrandAndModel: this.car.CarBrandAndModel,
+            CarType: this.car.CarType,
+            EngineCapacity: this.car.EngineCapacity,
+            FuelType: this.car.FuelType,
+            Photo: this.car.Photo,
+            Price: this.car.Price,
+            Traction: this.car.Traction,
+            Transmision: this.car.Transmision,
+            Year: this.car.Year,
+            id: newId,
+          })
+          .then(
+            (this.car.id = ""),
+            (this.car.CarBrandAndModel = ""),
+            (this.car.Price = ""),
+            (this.car.CarType = " "),
+            (this.car.FuelType = ""),
+            (this.car.Transmision = ""),
+            (this.car.EngineCapacity = ""),
+            (this.car.Year = ""),
+            (this.car.Traction = ""),
+            this.$refs.carForm.reset()
+          );
+        //Daca are ID atunci inseamna ca modificam masina
+      } else {
+        db.collection("cars")
+          .doc(`${this.car.id}`)
+          .set({
+            CarBrandAndModel: this.car.CarBrandAndModel,
+            CarType: this.car.CarType,
+            EngineCapacity: this.car.EngineCapacity,
+            FuelType: this.car.FuelType,
+            Photo: this.car.Photo,
+            Price: this.car.Price,
+            Traction: this.car.Traction,
+            Transmision: this.car.Transmision,
+            Year: this.car.Year,
+            id: this.car.id,
+          })
+          .then(
+            (this.car.id = ""),
+            (this.car.CarBrandAndModel = ""),
+            (this.car.Price = ""),
+            (this.car.CarType = " "),
+            (this.car.FuelType = ""),
+            (this.car.Transmision = ""),
+            (this.car.EngineCapacity = ""),
+            (this.car.Year = ""),
+            (this.car.Traction = ""),
+            this.$refs.carForm.reset(),
+            (this.message = "Add A Car")
+          );
       }
+    },
+    async deleteCar(id) {
+      db.collection("cars").doc(`${id}`).delete();
+    },
+    updateCar(car) {
+      this.car = car;
+      this.message = "Edit A Car";
     },
   },
   created() {
