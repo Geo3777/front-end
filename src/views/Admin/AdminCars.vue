@@ -182,7 +182,7 @@ export default {
         reader.readAsDataURL(file);
       }
     },
-    async formSubmit() {
+    formSubmit() {
       const newId = getRandomId();
       //Daca nu are ID creem o masina
       if (this.car.id == "") {
@@ -243,7 +243,7 @@ export default {
           );
       }
     },
-    async deleteCar(id) {
+    deleteCar(id) {
       db.collection("cars").doc(`${id}`).delete();
     },
     updateCar(car) {
