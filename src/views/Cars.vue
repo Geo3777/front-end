@@ -504,12 +504,14 @@ export default {
     appSingleCar: SingleCar,
   },
   created() {
-    db.collection("cars").onSnapshot((snap) => {
-      this.cars = [];
-      snap.forEach((doc) => {
-        this.cars.push(doc.data());
+    db.collection("cars")
+      .where("Price", ">=", this.filters.priceRange.minPrice)
+      .onSnapshot((snap) => {
+        this.cars = [];
+        snap.forEach((doc) => {
+          this.cars.push(doc.data());
+        });
       });
-    });
   },
 };
 </script>

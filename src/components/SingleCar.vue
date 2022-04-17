@@ -238,14 +238,14 @@
 <script>
 export default {
   props: {
-    carID: String,
+    carID: Number,
     carCarBrandAndModel: String,
-    carPrice: String,
+    carPrice: Number,
     carCarType: String,
     carFuelType: String,
     carTransmision: String,
-    carEngineCapacity: String,
-    carYear: String,
+    carEngineCapacity: Number,
+    carYear: Number,
     carTraction: String,
     carPhoto: String,
   },

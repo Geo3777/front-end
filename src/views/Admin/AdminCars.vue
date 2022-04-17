@@ -191,13 +191,13 @@ export default {
           .set({
             CarBrandAndModel: this.car.CarBrandAndModel,
             CarType: this.car.CarType,
-            EngineCapacity: this.car.EngineCapacity,
+            EngineCapacity: parseInt(this.car.EngineCapacity, 10),
             FuelType: this.car.FuelType,
             Photo: this.car.Photo,
-            Price: this.car.Price,
+            Price: parseInt(this.car.Price, 10),
             Traction: this.car.Traction,
             Transmision: this.car.Transmision,
-            Year: this.car.Year,
+            Year: parseInt(this.car.Year, 10),
             id: newId,
           })
           .then(
@@ -219,13 +219,13 @@ export default {
           .set({
             CarBrandAndModel: this.car.CarBrandAndModel,
             CarType: this.car.CarType,
-            EngineCapacity: this.car.EngineCapacity,
+            EngineCapacity: parseInt(this.car.EngineCapacity, 10),
             FuelType: this.car.FuelType,
             Photo: this.car.Photo,
-            Price: this.car.Price,
+            Price: parseInt(this.car.Price, 10),
             Traction: this.car.Traction,
             Transmision: this.car.Transmision,
-            Year: this.car.Year,
+            Year: parseInt(this.car.Year, 10),
             id: this.car.id,
           })
           .then(
