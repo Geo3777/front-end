@@ -49,6 +49,7 @@
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
                       v-model="filters.priceRange.minPrice"
+                      @change="database"
                     />
                   </div>
                   <div class="input-group mb-3">
@@ -61,6 +62,7 @@
                       aria-label="Default"
                       aria-describedby="inputGroup-sizing-default"
                       v-model="filters.priceRange.maxPrice"
+                      @change="database"
                     />
                   </div>
                 </div>
@@ -503,15 +505,21 @@ export default {
   components: {
     appSingleCar: SingleCar,
   },
-  created() {
-    db.collection("cars")
-      .where("Price", ">=", this.filters.priceRange.minPrice)
-      .onSnapshot((snap) => {
-        this.cars = [];
-        snap.forEach((doc) => {
-          this.cars.push(doc.data());
+  methods: {
+    database() {
+      db.collection("cars")
+        .where("Price", ">=", parseInt(this.filters.priceRange.minPrice, 10))
+        .where("Price", "<=", parseInt(this.filters.priceRange.maxPrice, 10))
+        .onSnapshot((snap) => {
+          this.cars = [];
+          snap.forEach((doc) => {
+            this.cars.push(doc.data());
+          });
         });
-      });
+    },
+  },
+  created() {
+    this.database();
   },
 };
 </script>
