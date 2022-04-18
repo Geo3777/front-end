@@ -84,7 +84,7 @@
               </h2>
               <div
                 id="flush-collapseTwo"
-                class="accordion-collapse collapse"
+                class="accordion-collapse collapse show"
                 aria-labelledby="flush-headingTwo"
                 data-bs-parent="#accordionFlushExample"
               >
@@ -95,6 +95,7 @@
                       class="form-check-input filled-in"
                       id="sedan"
                       v-model="filters.vehicleType.sedan"
+                      @change="database"
                     />
                     <label class="form-check-label" for="sedan">Sedan</label>
                   </div>
@@ -104,6 +105,7 @@
                       class="form-check-input filled-in"
                       id="break"
                       v-model="filters.vehicleType.hatchback"
+                      @change="database"
                     />
                     <label class="form-check-label" for="break"
                       >Hatchback</label
@@ -115,6 +117,7 @@
                       class="form-check-input filled-in"
                       id="suv"
                       v-model="filters.vehicleType.suv"
+                      @change="database"
                     />
                     <label class="form-check-label" for="suv">SUV</label>
                   </div>
@@ -124,6 +127,7 @@
                       class="form-check-input filled-in"
                       id="sport"
                       v-model="filters.vehicleType.sport"
+                      @change="database"
                     />
                     <label class="form-check-label" for="sport">Sport</label>
                   </div>
@@ -133,252 +137,9 @@
                       class="form-check-input filled-in"
                       id="van"
                       v-model="filters.vehicleType.van"
+                      @change="database"
                     />
                     <label class="form-check-label" for="van">Van</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Fuel Type -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingThree">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseThree"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseThree"
-                >
-                  Fuel Type
-                </button>
-              </h2>
-              <div
-                id="flush-collapseThree"
-                class="accordion-collapse collapse"
-                aria-labelledby="flush-headingTThree"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div class="accordion-body bg-mistic">
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="petrol"
-                      v-model="filters.fuelType.petrol"
-                    />
-                    <label class="form-check-label" for="petrol">Petrol</label>
-                  </div>
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="diesel"
-                      v-model="filters.fuelType.diesel"
-                    />
-                    <label class="form-check-label" for="diesel">Diesel</label>
-                  </div>
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="electric"
-                      v-model="filters.fuelType.electric"
-                    />
-                    <label class="form-check-label" for="electric"
-                      >Electric</label
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Transmision -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingFour">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseFour"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseFour"
-                >
-                  Transmission
-                </button>
-              </h2>
-              <div
-                id="flush-collapseFour"
-                class="accordion-collapse collapse"
-                aria-labelledby="flush-headingFour"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div class="accordion-body bg-mistic">
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="manual"
-                      v-model="filters.transmission.manual"
-                    />
-                    <label class="form-check-label" for="manual">Manual</label>
-                  </div>
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="automatic"
-                      v-model="filters.transmission.automatic"
-                    />
-                    <label class="form-check-label" for="automatic"
-                      >Automatic</label
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Engine Capacity -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingSix">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseSix"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseSix"
-                >
-                  Engine Capacity
-                </button>
-              </h2>
-              <div
-                id="flush-collapseSix"
-                class="accordion-collapse collapse"
-                aria-labelledby="flush-headingSix"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div class="accordion-body bg-mistic">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-warning">Min</span>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control bg-dmistic text-light"
-                      aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default"
-                      v-model="filters.engineCapacity.minEngine"
-                    />
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-warning">Max</span>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control bg-dmistic text-light"
-                      aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default"
-                      v-model="filters.engineCapacity.maxEngine"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Year -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingSeven">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseSeven"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseSeven"
-                >
-                  Year
-                </button>
-              </h2>
-              <div
-                id="flush-collapseSeven"
-                class="accordion-collapse collapse"
-                aria-labelledby="flush-headingSeven"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div class="accordion-body bg-mistic">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-warning">Min</span>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control bg-dmistic text-light"
-                      aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default"
-                      v-model="filters.year.minYear"
-                    />
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-warning">Max</span>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control bg-dmistic text-light"
-                      aria-label="Default"
-                      aria-describedby="inputGroup-sizing-default"
-                      v-model="filters.year.maxYear"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Traction -->
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="flush-headingEight">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#flush-collapseEight"
-                  aria-expanded="false"
-                  aria-controls="flush-collapseEight"
-                >
-                  Traction
-                </button>
-              </h2>
-              <div
-                id="flush-collapseEight"
-                class="accordion-collapse collapse"
-                aria-labelledby="flush-headingEight"
-                data-bs-parent="#accordionFlushExample"
-              >
-                <div class="accordion-body bg-mistic">
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="FWD"
-                      v-model="filters.traction.fwd"
-                    />
-                    <label class="form-check-label" for="FWD">FWD</label>
-                  </div>
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="RWD"
-                      v-model="filters.traction.rwd"
-                    />
-                    <label class="form-check-label" for="RWD">RWD</label>
-                  </div>
-                  <div class="form-check checkbox-warning-filled">
-                    <input
-                      type="checkbox"
-                      class="form-check-input filled-in"
-                      id="AWD"
-                      v-model="filters.traction.awd"
-                    />
-                    <label class="form-check-label" for="AWD">AWD</label>
                   </div>
                 </div>
               </div>
@@ -387,7 +148,11 @@
 
           <!-- Reset Filters -->
           <div class="d-grid col-12 mx-auto">
-            <button class="btn btn-lg btn-mistic text-warning" type="button">
+            <button
+              class="btn btn-lg btn-mistic text-warning"
+              type="button"
+              @click="resetFilters"
+            >
               Reset Filters
             </button>
           </div>
@@ -413,10 +178,14 @@
                 aria-labelledby="dropdownMenuButton1"
               >
                 <li>
-                  <a class="dropdown-item" href="#">Price Ascending</a>
+                  <a class="dropdown-item" href="#" @click="priceAscending"
+                    >Price Ascending</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">Price Descending</a>
+                  <a class="dropdown-item" href="#" @click="priceDescending"
+                    >Price Descending</a
+                  >
                 </li>
               </ul>
             </div>
@@ -471,45 +240,73 @@ export default {
           maxPrice: 300,
         },
         vehicleType: {
+          vehicleTypes: [],
           sedan: true,
           hatchback: true,
           suv: true,
           sport: true,
           van: true,
         },
-        fuelType: {
-          petrol: true,
-          diesel: true,
-          electric: true,
-        },
-        transmission: {
-          manual: true,
-          automatic: true,
-        },
-        engineCapacity: {
-          minEngine: 0,
-          maxEngine: 5000,
-        },
-        year: {
-          minYear: 1990,
-          maxYear: 2030,
-        },
-        traction: {
-          fwd: true,
-          rwd: true,
-          awd: true,
-        },
       },
+      sorting: "asc",
     };
   },
   components: {
     appSingleCar: SingleCar,
   },
   methods: {
+    resetFilters() {
+      this.filters.priceRange.minPrice = 40;
+      this.filters.priceRange.maxPrice = 300;
+      this.filters.vehicleType.sedan = true;
+      this.filters.vehicleType.hatchback = true;
+      this.filters.vehicleType.suv = true;
+      this.filters.vehicleType.sport = true;
+      this.filters.vehicleType.van = true;
+      this.database();
+    },
+    priceAscending() {
+      this.sorting = "asc";
+      this.database();
+    },
+    priceDescending() {
+      this.sorting = "desc";
+      this.database();
+    },
     database() {
+      //filtrele pentru checkbox-uri
+      if (this.filters.vehicleType.sedan == true) {
+        this.filters.vehicleType.vehicleTypes[0] = "Sedan";
+      } else {
+        this.filters.vehicleType.vehicleTypes[0] = "";
+      }
+      if (this.filters.vehicleType.hatchback == true) {
+        this.filters.vehicleType.vehicleTypes[1] = "Hatchback";
+      } else {
+        this.filters.vehicleType.vehicleTypes[1] = "";
+      }
+      if (this.filters.vehicleType.suv == true) {
+        this.filters.vehicleType.vehicleTypes[2] = "SUV";
+      } else {
+        this.filters.vehicleType.vehicleTypes[2] = "";
+      }
+      if (this.filters.vehicleType.sport == true) {
+        this.filters.vehicleType.vehicleTypes[3] = "Sport";
+      } else {
+        this.filters.vehicleType.vehicleTypes[3] = "";
+      }
+      if (this.filters.vehicleType.van == true) {
+        this.filters.vehicleType.vehicleTypes[4] = "Van";
+      } else {
+        this.filters.vehicleType.vehicleTypes[4] = "";
+      }
+
+      //interogare baza de date
       db.collection("cars")
         .where("Price", ">=", parseInt(this.filters.priceRange.minPrice, 10))
         .where("Price", "<=", parseInt(this.filters.priceRange.maxPrice, 10))
+        .where("CarType", "in", this.filters.vehicleType.vehicleTypes)
+        .orderBy("Price", this.sorting)
         .onSnapshot((snap) => {
           this.cars = [];
           snap.forEach((doc) => {
@@ -564,5 +361,7 @@ export default {
 .checkbox-warning-filled [type="checkbox"][class*="filled-in"]:checked {
   border-color: #ff8800;
   background-color: #ff8800;
+}
+.accordion {
 }
 </style>
