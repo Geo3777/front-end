@@ -17,7 +17,6 @@
         <input
           type="password"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="Password"
         />
       </div>
@@ -26,22 +25,16 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="Full Name"
         />
       </div>
       <div class="form-group">
-        <label class="lead">Address</label>
+        <label class="lead">Phone Number</label>
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
-          placeholder="Street, Number, City, Country"
+          placeholder="+40747923662"
         />
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" />
-        <label class="form-check-label"> Admin </label>
       </div>
       <div class="d-grid gap-2">
         <button type="submit" class="btn btn-warning my-2 py-1">Submit</button>
@@ -55,11 +48,8 @@
           <tr style="min-height: 220px">
             <th scope="col" class="">#</th>
             <th scope="col" class="">email</th>
-            <th scope="col" class="">Password</th>
             <th scope="col" class="">Full Name</th>
-            <th scope="col" class="">Address</th>
-            <th scope="col" class="">Admin</th>
-            <th></th>
+            <th scope="col" class="">Phone Number</th>
             <th></th>
           </tr>
         </thead>
@@ -67,102 +57,9 @@
           <tr>
             <td>111</td>
             <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
             <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
+            <td>+40747923662</td>
             <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111</td>
-            <td>marksmith11234@gmail.com</td>
-            <td>asdf123456789</td>
-            <td>Mark Smith</td>
-            <td>Tarnavei, 64A, Medias, Romania</td>
-            <td>True</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
           </tr>
         </tbody>
       </table>

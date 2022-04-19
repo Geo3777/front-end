@@ -66,7 +66,6 @@ const routes = [
         path: "/admin/cars",
         name: "acars",
         component: AdminCars,
-
         beforeEnter: (to, from, next) => {
           if (createStore.state.isAdmin == false) {
             next(Home);
