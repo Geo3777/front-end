@@ -1,12 +1,15 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 export default createStore({
   state: {
+    isSignedIn: false,
   },
-  mutations: {
+  getters: {
+    getSignStatus: (state) => {
+      return state.isSignedIn;
+    },
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  mutations: {},
+  actions: {},
+  modules: {},
+});

@@ -77,7 +77,10 @@
               >Admin</router-link
             >
           </li>
-          <li class="nav-item mx-auto">
+          <li v-if="isSignedIn" class="nav-item mx-auto">
+            <button class="btn btn-warning" @click="signOut">Sign Out</button>
+          </li>
+          <li v-else class="nav-item mx-auto">
             <router-link
               style="text-decoration: none"
               class="btn btn-warning"
@@ -92,19 +95,39 @@
 </template>
 
 <script>
+import db from "../fb";
+import auth from "../auth";
 export default {
   data() {
     return {
       scrollPosition: null,
+      isSignedIn: false,
     };
   },
   methods: {
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
+    signOut() {
+      auth.signOut().then(() => {
+        console.log("signed out");
+      });
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.updateScroll);
+  },
+  created() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user);
+        this.isSignedIn = true;
+        console.log(this.isSignedIn);
+      } else {
+        this.isSignedIn = false;
+        console.log(this.isSignedIn);
+      }
+    });
   },
 };
 </script>
