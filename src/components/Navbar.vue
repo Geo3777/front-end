@@ -120,7 +120,6 @@ export default {
   created() {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         this.isSignedIn = true;
         console.log(this.isSignedIn);
       } else {
