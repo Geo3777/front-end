@@ -11,6 +11,7 @@ import AdminAppointments from "../views/Admin/AdminAppointments.vue";
 import Account from "../views/Account/Account.vue";
 import SignIn from "../views/Account/SignIn.vue";
 import Register from "../views/Account/Register.vue";
+import createStore from "../store/index";
 const routes = [
   {
     path: "/",
@@ -41,21 +42,50 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: Admin,
+    beforeEnter: (to, from, next) => {
+      if (createStore.state.isAdmin == false) {
+        next(Home);
+      } else {
+        next();
+      }
+    },
     children: [
       {
         path: "/admin/users",
         name: "users",
         component: AdminUsers,
+        beforeEnter: (to, from, next) => {
+          if (createStore.state.isAdmin == false) {
+            next(Home);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "/admin/cars",
         name: "acars",
         component: AdminCars,
+
+        beforeEnter: (to, from, next) => {
+          if (createStore.state.isAdmin == false) {
+            next(Home);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "/admin/appointments",
         name: "appointments",
         component: AdminAppointments,
+        beforeEnter: (to, from, next) => {
+          if (createStore.state.isAdmin == false) {
+            next(Home);
+          } else {
+            next();
+          }
+        },
       },
     ],
   },

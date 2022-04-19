@@ -69,7 +69,7 @@
               >Terms And Conditions</router-link
             >
           </li>
-          <li class="nav-item">
+          <li v-if="isAdmin" class="nav-item">
             <router-link
               :to="{ name: 'users' }"
               class="nav-link"
@@ -102,6 +102,7 @@ export default {
     return {
       scrollPosition: null,
       isSignedIn: false,
+      isAdmin: false,
     };
   },
   methods: {
@@ -122,13 +123,24 @@ export default {
       if (user) {
         this.isSignedIn = true;
         this.$store.state.isSignedIn = true;
-        console.log(this.isSignedIn);
-        console.log(this.$store.state.isSignedIn);
+        console.log(`Is signed in: ${this.isSignedIn}`);
+        console.log(user);
+        if (user.email === "admin@admin.com") {
+          this.isAdmin = true;
+          this.$store.state.isAdmin = true;
+          console.log(`Is admin: ${this.isAdmin}`);
+        } else {
+          this.isAdmin = false;
+          this.$store.state.isAdmin = false;
+          console.log(`Is admin: ${this.isAdmin}`);
+        }
       } else {
         this.isSignedIn = false;
         this.$store.state.isSignedIn = false;
-        console.log(this.isSignedIn);
-        console.log(this.$store.state.isSignedIn);
+        this.isAdmin = false;
+        this.$store.state.isAdmin = false;
+        console.log(`Is signed in: ${this.isSignedIn}`);
+        console.log(`Is admin: ${this.isAdmin}`);
       }
     });
   },

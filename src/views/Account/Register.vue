@@ -42,9 +42,18 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="Full Name"
           v-model="user.fullName"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label class="lead">Phone Number</label>
+        <input
+          type="text"
+          class="form-control bg-dmistic text-light"
+          placeholder="+40782736511"
+          v-model="user.phoneNumber"
           required
         />
       </div>
@@ -70,6 +79,7 @@ export default {
         password: "",
         confirmPassword: "",
         fullName: "",
+        phoneNumber: "",
       },
     };
   },
@@ -82,6 +92,14 @@ export default {
             return cred.user
               .updateProfile({
                 displayName: this.user.fullName,
+              })
+              .then(() => {
+                db.collection("users").doc(`${cred.user.uid}`).set({
+                  Email: this.user.email,
+                  FullName: this.user.fullName,
+                  id: cred.user.uid,
+                  PhoneNumer: this.user.phoneNumber,
+                });
               })
               .then(() => {
                 console.log(cred);
