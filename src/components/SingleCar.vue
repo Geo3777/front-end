@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- car -->
-
     <div class="card w-100 h-100 bg-mistic" style="width: 18rem">
       <img v-bind:src="carPhoto" class="card-img-top carImg" alt="..." />
       <div class="card-body">
@@ -53,6 +52,7 @@
             type="button"
             data-bs-toggle="modal"
             :data-bs-target="`#m${carID}`"
+            @click="check"
           >
             Rent It!
           </button>
@@ -69,6 +69,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       role="dialog"
+      v-if="isSignedIn"
     >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-mistic text-light">
@@ -236,6 +237,8 @@
 </template>
 
 <script>
+import db from "../fb";
+import auth from "../auth";
 export default {
   props: {
     carID: Number,
@@ -248,6 +251,29 @@ export default {
     carYear: Number,
     carTraction: String,
     carPhoto: String,
+  },
+  data() {
+    return {
+      isSignedIn: false,
+    };
+  },
+  methods: {
+    check() {
+      if (this.isSignedIn == false) {
+        alert("You need to Sign In in order to rent a car");
+      }
+    },
+  },
+  created() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.isSignedIn = true;
+        this.$store.state.isSignedIn = true;
+      } else {
+        this.isSignedIn = false;
+        this.$store.state.isSignedIn = false;
+      }
+    });
   },
 };
 </script>

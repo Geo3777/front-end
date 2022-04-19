@@ -4,11 +4,7 @@ export default createStore({
   state: {
     isSignedIn: false,
   },
-  getters: {
-    getSignStatus: (state) => {
-      return state.isSignedIn;
-    },
-  },
+  getters: {},
   mutations: {},
   actions: {},
   modules: {},
