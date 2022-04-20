@@ -12,6 +12,7 @@ import Account from "../views/Account/Account.vue";
 import SignIn from "../views/Account/SignIn.vue";
 import Register from "../views/Account/Register.vue";
 import createStore from "../store/index";
+
 const routes = [
   {
     path: "/",
@@ -118,6 +119,9 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { left: 0, top: 0 };
+  },
 });
 
 export default router;
