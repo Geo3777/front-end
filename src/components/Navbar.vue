@@ -80,6 +80,7 @@
           <li v-if="isSignedIn" class="nav-item mx-auto">
             <button class="btn btn-warning" @click="signOut">Sign Out</button>
           </li>
+
           <li v-else class="nav-item mx-auto">
             <router-link
               style="text-decoration: none"

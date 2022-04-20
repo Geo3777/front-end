@@ -268,10 +268,8 @@ export default {
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.isSignedIn = true;
-        this.$store.state.isSignedIn = true;
       } else {
         this.isSignedIn = false;
-        this.$store.state.isSignedIn = false;
       }
     });
   },

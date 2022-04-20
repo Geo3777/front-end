@@ -14,6 +14,13 @@
               kind of needs. We pride ourselves in offering the best services in
               the market.
             </p>
+            <button
+              v-if="allowDelete"
+              class="btn btn-danger"
+              @click="deleteAccount"
+            >
+              Delete Account
+            </button>
           </div>
           <div class="col-md-3 col-lg-2 mx-auto mb-4 hovering">
             <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
@@ -77,7 +84,45 @@
 </template>
 
 <script>
-export default {};
+import db from "../fb";
+import auth from "../auth";
+export default {
+  data() {
+    return {
+      allowDelete: false,
+    };
+  },
+  methods: {
+    deleteAccount() {
+      const user = auth.currentUser;
+      const id = user.uid;
+      user
+        .delete()
+        .then(() => {
+          db.collection("users").doc(`${id}`).delete();
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+    },
+  },
+
+  created() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.allowDelete = true;
+        if (user.email === "admin@admin.com") {
+          this.allowDelete = false;
+        } else {
+          this.allowDelete = true;
+        }
+      } else {
+        this.allowDelete = false;
+      }
+    });
+  },
+};
 </script>
 
 <style scoped>
