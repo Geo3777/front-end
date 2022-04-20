@@ -125,6 +125,7 @@ export default {
               })
               .then(() => {
                 console.log(cred);
+                this.$router.push({ name: "home" });
                 alert("registration succesful");
               });
           })
