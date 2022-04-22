@@ -1,16 +1,21 @@
 <template>
   <div class="col-lg-4 text-light p-0 m-0">
     <h1 class="text-warning text-center py-2 bg-dmistic px-0 mx-0">
-      Add An Appointment
+      {{ message }}
     </h1>
-    <form action="" class="px-4">
+    <form
+      class="px-4"
+      action="javascript:void(0)"
+      ref="carForm"
+      @submit="formSubmit"
+    >
       <div class="form-group">
         <label class="lead">Car ID</label>
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="122435"
+          v-model="appointment.carId"
         />
       </div>
       <div class="form-group">
@@ -18,8 +23,17 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="exampleInputPassword1"
           placeholder="122435"
+          v-model="appointment.userId"
+        />
+      </div>
+      <div class="form-group">
+        <label class="lead">User Name</label>
+        <input
+          type="text"
+          class="form-control bg-dmistic text-light"
+          placeholder="George Otgon"
+          v-model="appointment.userName"
         />
       </div>
       <div class="form-group">
@@ -27,8 +41,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="deliveryA"
           placeholder="Street and Number"
+          v-model="appointment.deliveryAddress"
         />
       </div>
       <div class="form-group">
@@ -36,8 +50,8 @@
         <input
           type="text"
           class="form-control bg-dmistic text-light"
-          id="deliveryP"
           placeholder="Street and Number"
+          v-model="appointment.pickupAddress"
         />
       </div>
       <div class="form-group">
@@ -46,7 +60,7 @@
           class="bg-dmistic text-light form-control"
           type="datetime-local"
           style="outline: none"
-          id="datetimepicker1"
+          v-model="appointment.deliveryTime"
         />
       </div>
       <div class="form-group">
@@ -55,7 +69,16 @@
           class="bg-dmistic text-light form-control"
           type="datetime-local"
           style="outline: none"
-          id="datetimepicker2"
+          v-model="appointment.pickupTime"
+        />
+      </div>
+      <div class="form-group">
+        <label class="lead">Payment Method</label>
+        <input
+          type="text"
+          class="form-control bg-dmistic text-light"
+          placeholder="cash"
+          v-model="appointment.paymentMethod"
         />
       </div>
       <div class="d-grid gap-2">
@@ -71,6 +94,7 @@
             <th scope="col" class="">#</th>
             <th scope="col" class="">Car ID</th>
             <th scope="col" class="">User ID</th>
+            <th scope="col" class="">User Name</th>
             <th scope="col" class="">Delivery Address</th>
             <th scope="col" class="">Pick-Up Address</th>
             <th scope="col" class="">Delivery Time</th>
@@ -82,197 +106,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
-          </tr>
-          <tr>
-            <td>111111</td>
-            <td>11111</td>
-            <td>11111</td>
-            <td>Tarnavei 64A</td>
-            <td>Tarnavei 64A</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>04/05/2022 07:30 PM</td>
-            <td>card</td>
+          <tr v-for="(appointment, index) in appointments" v-bind:key="index">
+            <td>{{ appointment.id }}</td>
+            <td>{{ appointment.CarId }}</td>
+            <td>{{ appointment.UserId }}</td>
+            <td>{{ appointment.UserName }}</td>
+            <td>{{ appointment.DeliveryAddress }}</td>
+            <td>{{ appointment.PickUpAddress }}</td>
+            <td>{{ appointment.DeliveryTime }}</td>
+            <td>{{ appointment.PickUpTime }}</td>
+            <td>{{ appointment.PaymentMethod }}</td>
             <td>300</td>
             <td><button class="btn btn-danger">delete</button></td>
             <td><button class="btn btn-primary">edit</button></td>
@@ -284,7 +127,67 @@
 </template>
 
 <script>
-export default {};
+import db from "../../fb";
+function getRandomId() {
+  var min = 0;
+  var max = 100000;
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
+export default {
+  data() {
+    return {
+      appointments: [],
+      appointment: {
+        id: "",
+        carId: "",
+        userId: "",
+        userName: "",
+        deliveryAddress: "",
+        pickupAddress: "",
+        deliveryTime: "",
+        pickupTime: "",
+        paymentMethod: "",
+        totalPrice: "",
+      },
+      car: {},
+      message: "Add An Appointment",
+    };
+  },
+  methods: {
+    formSubmit() {
+      const date1 = this.appointment.deliveryTime;
+      console.log(Date.parse(date1));
+      const date2 = this.appointment.pickupTime;
+      console.log(Date.parse(date2));
+      const diffTime = Math.abs(Date.parse(date2) - Date.parse(date1));
+      console.log(diffTime);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      console.log(diffDays + " days");
+      var docRef = db.collection("cars").doc(this.appointment.carId);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.car = doc.data();
+            console.log(this.car.Price);
+          } else {
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    },
+  },
+  created() {
+    db.collection("appointments").onSnapshot((snap) => {
+      this.appointments = [];
+      snap.forEach((doc) => {
+        this.appointments.push(doc.data());
+      });
+    });
+  },
+};
 </script>
 
 <style scoped>
