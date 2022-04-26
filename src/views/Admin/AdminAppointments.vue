@@ -6,7 +6,7 @@
     <form
       class="px-4"
       action="javascript:void(0)"
-      ref="carForm"
+      ref="aForm"
       @submit="formSubmit"
     >
       <div class="form-group">
@@ -116,9 +116,23 @@
             <td>{{ appointment.DeliveryTime }}</td>
             <td>{{ appointment.PickUpTime }}</td>
             <td>{{ appointment.PaymentMethod }}</td>
-            <td>300</td>
-            <td><button class="btn btn-danger">delete</button></td>
-            <td><button class="btn btn-primary">edit</button></td>
+            <td>{{ appointment.TotalPrice }}</td>
+            <td>
+              <button
+                @click="deleteAppointment(appointment.id)"
+                class="btn btn-danger"
+              >
+                delete
+              </button>
+            </td>
+            <td>
+              <button
+                @click="updateAppointment(appointment)"
+                class="btn btn-primary"
+              >
+                update
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -155,28 +169,113 @@ export default {
   },
   methods: {
     formSubmit() {
-      const date1 = this.appointment.deliveryTime;
-      console.log(Date.parse(date1));
-      const date2 = this.appointment.pickupTime;
-      console.log(Date.parse(date2));
-      const diffTime = Math.abs(Date.parse(date2) - Date.parse(date1));
-      console.log(diffTime);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      console.log(diffDays + " days");
-      var docRef = db.collection("cars").doc(this.appointment.carId);
+      let date1 = new Date(this.appointment.deliveryTime);
+      let date11 = new Date(
+        date1.getFullYear(),
+        date1.getMonth(),
+        date1.getDate()
+      );
+      let date2 = new Date(this.appointment.pickupTime);
+      let date22 = new Date(
+        date2.getFullYear(),
+        date2.getMonth(),
+        date2.getDate()
+      );
+      let diffTime = Math.abs(date22 - date11);
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      var docRef = db.collection("cars").doc(`${this.appointment.carId}`);
       docRef
         .get()
         .then((doc) => {
           if (doc.exists) {
+            //daca exista masina facem programarea
             this.car = doc.data();
-            console.log(this.car.Price);
+            this.appointment.totalPrice = diffDays * this.car.Price;
+            const newId = getRandomId();
+            //Daca nu are ID creem o programare
+            if (this.appointment.id == "") {
+              db.collection("appointments")
+                .doc(`${newId}`)
+                .set({
+                  CarId: parseInt(this.appointment.carId, 10),
+                  DeliveryAddress: this.appointment.deliveryAddress,
+                  DeliveryTime: this.appointment.deliveryTime,
+                  PaymentMethod: this.appointment.paymentMethod,
+                  PickUpAddress: this.appointment.pickupAddress,
+                  PickUpTime: this.appointment.pickupTime,
+                  TotalPrice: this.appointment.totalPrice,
+                  UserId: this.appointment.userId,
+                  UserName: this.appointment.userName,
+                  id: newId,
+                })
+                .then(
+                  (this.appointment.id = ""),
+                  (this.appointment.carId = ""),
+                  (this.appointment.userId = ""),
+                  (this.appointment.userName = ""),
+                  (this.appointment.deliveryAddress = ""),
+                  (this.appointment.pickupAddress = ""),
+                  (this.appointment.deliveryTime = ""),
+                  (this.appointment.pickupTime = ""),
+                  (this.appointment.paymentMethod = ""),
+                  (this.appointment.totalPrice = ""),
+                  (date1 = ""),
+                  (date2 = ""),
+                  this.$refs.aForm.reset()
+                );
+              //Daca are ID atunci inseamna ca modificam o programare
+            } else {
+              db.collection("appointments")
+                .doc(`${this.appointment.id}`)
+                .set({
+                  CarId: parseInt(this.appointment.carId, 10),
+                  DeliveryAddress: this.appointment.deliveryAddress,
+                  DeliveryTime: this.appointment.deliveryTime,
+                  PaymentMethod: this.appointment.paymentMethod,
+                  PickUpAddress: this.appointment.pickupAddress,
+                  PickUpTime: this.appointment.pickupTime,
+                  TotalPrice: parseInt(this.appointment.totalPrice, 10),
+                  UserId: this.appointment.userId,
+                  UserName: this.appointment.userName,
+                  id: this.appointment.id,
+                })
+                .then(
+                  (this.appointment.id = ""),
+                  (this.appointment.carId = ""),
+                  (this.appointment.userId = ""),
+                  (this.appointment.userName = ""),
+                  (this.appointment.deliveryAddress = ""),
+                  (this.appointment.pickupAddress = ""),
+                  (this.appointment.deliveryTime = ""),
+                  (this.appointment.pickupTime = ""),
+                  (this.appointment.paymentMethod = ""),
+                  (this.appointment.totalPrice = ""),
+                  this.$refs.aForm.reset(),
+                  (this.message = "Add An Appointment")
+                );
+            }
           } else {
-            console.log("No such document!");
+            alert("No such car!");
           }
         })
         .catch((error) => {
-          console.log("Error getting document:", error);
+          alert(error.message);
         });
+    },
+    updateAppointment(appointment) {
+      this.appointment.carId = appointment.CarId;
+      this.appointment.userId = appointment.UserId;
+      this.appointment.userName = appointment.UserName;
+      this.appointment.deliveryAddress = appointment.DeliveryAddress;
+      this.appointment.pickupAddress = appointment.PickUpAddress;
+      this.appointment.deliveryTime = appointment.DeliveryTime;
+      this.appointment.pickupTime = appointment.PickUpTime;
+      this.appointment.paymentMethod = appointment.PaymentMethod;
+      this.appointment.id = parseInt(appointment.id);
+      this.message = "Edit An Appointment";
+    },
+    deleteAppointment(id) {
+      db.collection("appointments").doc(`${id}`).delete();
     },
   },
   created() {
