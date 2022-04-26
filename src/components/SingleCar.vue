@@ -85,7 +85,12 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form action="">
+            <form
+              class="px-4"
+              action="javascript:void(0)"
+              ref="aForm"
+              @submit="formSubmit"
+            >
               <!-- location -->
               <section>
                 <h4>Location</h4>
@@ -98,6 +103,7 @@
                     class="form-control bg-dmistic text-light"
                     id="deliveryA"
                     placeholder="Street and Number"
+                    v-model="appointment.deliveryAddress"
                   />
                 </div>
                 <div class="form-group py-2">
@@ -109,6 +115,7 @@
                     class="form-control bg-dmistic text-light"
                     id="deliveryP"
                     placeholder="Street and Number"
+                    v-model="appointment.pickupAddress"
                   />
                 </div>
               </section>
@@ -125,6 +132,8 @@
                     type="datetime-local"
                     style="outline: none"
                     id="datetimepicker1"
+                    v-model="appointment.deliveryTime"
+                    @change="payment"
                   />
                 </div>
                 <div class="form-group py-2">
@@ -136,6 +145,8 @@
                     type="datetime-local"
                     style="outline: none"
                     id="datetimepicker2"
+                    v-model="appointment.pickupTime"
+                    @change="payment"
                   />
                 </div>
               </section>
@@ -143,66 +154,72 @@
               <!-- payment -->
               <section>
                 <h4>Payment</h4>
-                <p class="lead">Total Payment: €300</p>
+                <p class="lead">Total Payment: {{ appointment.totalPrice }}€</p>
                 <!-- switch -->
                 <div class="switching py-2 d-flex">
                   <p class="lead me-2">cash</p>
                   <label class="switch">
-                    <input type="checkbox" />
+                    <input
+                      @change="paymentMethodF"
+                      v-model="cardPayment"
+                      type="checkbox"
+                    />
                     <span class="slider round"></span>
                   </label>
                   <p class="lead ms-2">card</p>
                 </div>
                 <!-- Card -->
-                <p class="lead text-center p-0 m-0">Payment Details</p>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group py-2">
-                      <label for="nameC" class="lead">Person Name</label>
-                      <input
-                        class="bg-dmistic text-light w-100 form-control p-2"
-                        type="text"
-                        style="outline: none"
-                        id="nameC"
-                        placeholder="Frank Winter"
-                      />
+                <div v-if="cardPayment">
+                  <p class="lead text-center p-0 m-0">Payment Details</p>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group py-2">
+                        <label for="nameC" class="lead">Person Name</label>
+                        <input
+                          class="bg-dmistic text-light w-100 form-control p-2"
+                          type="text"
+                          style="outline: none"
+                          id="nameC"
+                          placeholder="Frank Winter"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-group py-2">
-                      <label for="cardN" class="lead">Card Number</label>
-                      <input
-                        class="bg-dmistic text-light w-100 form-control p-2"
-                        type="text"
-                        style="outline: none"
-                        id="cardN"
-                        placeholder="1234 5678 435679"
-                      />
+                    <div class="col-12">
+                      <div class="form-group py-2">
+                        <label for="cardN" class="lead">Card Number</label>
+                        <input
+                          class="bg-dmistic text-light w-100 form-control p-2"
+                          type="text"
+                          style="outline: none"
+                          id="cardN"
+                          placeholder="1234 5678 435679"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group py-2">
-                      <label for="datetimepicker3" class="lead"
-                        >Expire Date</label
-                      >
-                      <input
-                        class="bg-dmistic text-light w-100 form-control p-2"
-                        type="month"
-                        style="outline: none"
-                        id="datetimepicker3"
-                      />
+                    <div class="col-6">
+                      <div class="form-group py-2">
+                        <label for="datetimepicker3" class="lead"
+                          >Expire Date</label
+                        >
+                        <input
+                          class="bg-dmistic text-light w-100 form-control p-2"
+                          type="month"
+                          style="outline: none"
+                          id="datetimepicker3"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group py-2">
-                      <label for="cardCV" class="lead">CVV/CVC</label>
-                      <input
-                        class="bg-dmistic text-light w-100 form-control p-2"
-                        type="password"
-                        style="outline: none"
-                        id="cardCV"
-                        placeholder="123"
-                      />
+                    <div class="col-6">
+                      <div class="form-group py-2">
+                        <label for="cardCV" class="lead">CVV/CVC</label>
+                        <input
+                          class="bg-dmistic text-light w-100 form-control p-2"
+                          type="password"
+                          style="outline: none"
+                          id="cardCV"
+                          placeholder="123"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -227,7 +244,9 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-warning">Finish</button>
+            <button type="submit" @click="formSubmit" class="btn btn-warning">
+              Finish
+            </button>
           </div>
         </div>
       </div>
@@ -239,6 +258,11 @@
 <script>
 import db from "../fb";
 import auth from "../auth";
+function getRandomId() {
+  var min = 0;
+  var max = 100000;
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
 export default {
   props: {
     carID: Number,
@@ -255,6 +279,19 @@ export default {
   data() {
     return {
       isSignedIn: false,
+      cardPayment: false,
+      appointment: {
+        id: "",
+        carId: "",
+        userId: "",
+        userName: "",
+        deliveryAddress: "",
+        pickupAddress: "",
+        deliveryTime: "",
+        pickupTime: "",
+        paymentMethod: "cash",
+        totalPrice: "",
+      },
     };
   },
   methods: {
@@ -263,11 +300,67 @@ export default {
         alert("You need to Sign In in order to rent a car");
       }
     },
+    payment() {
+      let date1 = new Date(this.appointment.deliveryTime);
+      let date11 = new Date(
+        date1.getFullYear(),
+        date1.getMonth(),
+        date1.getDate()
+      );
+      let date2 = new Date(this.appointment.pickupTime);
+      let date22 = new Date(
+        date2.getFullYear(),
+        date2.getMonth(),
+        date2.getDate()
+      );
+      let diffTime = Math.abs(date22 - date11);
+      let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      this.appointment.totalPrice = diffDays * this.carPrice;
+    },
+    paymentMethodF() {
+      if (this.cardPayment == false) {
+        this.appointment.paymentMethod = "cash";
+      } else {
+        this.appointment.paymentMethod = "card";
+      }
+    },
+    formSubmit() {
+      const newId = getRandomId();
+      db.collection("appointments")
+        .doc(`${newId}`)
+        .set({
+          CarId: this.carID,
+          DeliveryAddress: this.appointment.deliveryAddress,
+          DeliveryTime: this.appointment.deliveryTime,
+          PaymentMethod: this.appointment.paymentMethod,
+          PickUpAddress: this.appointment.pickupAddress,
+          PickUpTime: this.appointment.pickupTime,
+          TotalPrice: this.appointment.totalPrice,
+          UserId: this.appointment.userId,
+          UserName: this.appointment.userName,
+          id: newId,
+        })
+        .then(
+          (this.appointment.carId = ""),
+          (this.appointment.deliveryAddress = ""),
+          (this.appointment.pickupAddress = ""),
+          (this.appointment.deliveryTime = ""),
+          (this.appointment.pickupTime = ""),
+          (this.appointment.paymentMethod = ""),
+          (this.appointment.totalPrice = ""),
+          (date1 = ""),
+          (date2 = ""),
+          this.$refs.aForm.reset()
+        );
+    },
   },
   created() {
     auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         this.isSignedIn = true;
+        this.appointment.userId = user.uid;
+        this.appointment.userName = user.displayName;
       } else {
         this.isSignedIn = false;
       }
