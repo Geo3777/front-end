@@ -69,6 +69,14 @@
               >Terms And Conditions</router-link
             >
           </li>
+          <li v-if="isSignedIn" class="nav-item">
+            <router-link
+              :to="{ name: 'appointmentsUser' }"
+              class="nav-link"
+              active-class="active"
+              >My Orders</router-link
+            >
+          </li>
           <li v-if="isAdmin" class="nav-item">
             <router-link
               :to="{ name: 'users' }"

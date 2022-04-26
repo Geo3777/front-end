@@ -12,7 +12,7 @@ import Account from "../views/Account/Account.vue";
 import SignIn from "../views/Account/SignIn.vue";
 import Register from "../views/Account/Register.vue";
 import createStore from "../store/index";
-
+import Appointmets from "../views/Appointments.vue";
 const routes = [
   {
     path: "/",
@@ -38,6 +38,11 @@ const routes = [
     path: "/terms",
     name: "terms",
     component: Terms,
+  },
+  {
+    path: "/appointments",
+    name: "appointmentsUser",
+    component: Appointmets,
   },
   {
     path: "/admin",
