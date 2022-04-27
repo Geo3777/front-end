@@ -54,11 +54,15 @@
           v-model="appointment.pickupAddress"
         />
       </div>
+      <button class="btn btn-warning my-2" @click="check" type="button">
+        Get Disabled Dates
+      </button>
       <div class="form-group">
         <label class="lead">Car Delivery Time</label>
         <Datepicker
           v-model="appointment.deliveryTime"
           :minDate="new Date()"
+          :disabledDates="finalDates"
           dark
         ></Datepicker>
       </div>
@@ -67,6 +71,7 @@
         <Datepicker
           v-model="appointment.pickupTime"
           :minDate="new Date()"
+          :disabledDates="finalDates"
           dark
         ></Datepicker>
       </div>
@@ -148,6 +153,21 @@ function getRandomId() {
   var max = 100000;
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
+//pentru a crea un vector de date
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
+function getDates(startDate, stopDate) {
+  var dateArray = new Array();
+  var currentDate = startDate;
+  while (currentDate <= stopDate) {
+    dateArray.push(new Date(currentDate));
+    currentDate = currentDate.addDays(1);
+  }
+  return dateArray;
+}
 export default {
   data() {
     return {
@@ -168,12 +188,43 @@ export default {
       },
       car: {},
       message: "Add An Appointment",
+      dates: [],
+      infos: {},
+      finalDates: [],
+      array: [],
     };
   },
   components: { Datepicker },
   methods: {
+    check() {
+      var docRef = db
+        .collection("disabledDates")
+        .doc(`${this.appointment.carId}`);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.infos = doc.data();
+            this.dates = this.infos.Dates;
+            console.log(new Date(this.dates[0].seconds * 1000));
+            this.finalDates = this.dates.map(
+              (date) => new Date(date.seconds * 1000)
+            );
+            console.log(this.dates);
+          } else {
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    },
     formSubmit() {
       //calculam diferenta zilelor fara ora
+      var timeArray = getDates(
+        new Date(this.appointment.deliveryTime),
+        new Date(this.appointment.pickupTime)
+      );
       let date1 = new Date(this.appointment.deliveryTime);
       let date11 = new Date(
         date1.getFullYear(),
@@ -247,6 +298,16 @@ export default {
                   id: newId,
                 })
                 .then(
+                  (this.array = this.dates.concat(timeArray)),
+                  console.log(this.dates),
+                  db
+                    .collection("disabledDates")
+                    .doc(`${this.appointment.carId}`)
+                    .set({
+                      Dates: this.array,
+                    })
+                )
+                .then(
                   (this.appointment.id = ""),
                   (this.appointment.carId = ""),
                   (this.appointment.userId = ""),
@@ -279,6 +340,16 @@ export default {
                   DisplayPickUpTime: this.appointment.displayPickupTime,
                   id: this.appointment.id,
                 })
+                .then(
+                  (this.array = this.dates.concat(timeArray)),
+                  console.log(this.dates),
+                  db
+                    .collection("disabledDates")
+                    .doc(`${this.appointment.carId}`)
+                    .set({
+                      Dates: this.array,
+                    })
+                )
                 .then(
                   (this.appointment.id = ""),
                   (this.appointment.carId = ""),

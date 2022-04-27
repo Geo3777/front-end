@@ -435,7 +435,7 @@ export default {
           (this.appointment.pickupAddress = ""),
           (this.appointment.deliveryTime = ""),
           (this.appointment.pickupTime = ""),
-          (this.appointment.paymentMethod = ""),
+          (this.appointment.paymentMethod = "cash"),
           (this.appointment.totalPrice = ""),
           this.$refs.aForm.reset()
         );
