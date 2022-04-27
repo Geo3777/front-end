@@ -30,8 +30,8 @@
             <td>{{ appointment.UserName }}</td>
             <td>{{ appointment.DeliveryAddress }}</td>
             <td>{{ appointment.PickUpAddress }}</td>
-            <td>{{ appointment.DeliveryTime }}</td>
-            <td>{{ appointment.PickUpTime }}</td>
+            <td>{{ appointment.DisplayDeliveryTime }}</td>
+            <td>{{ appointment.DisplayPickUpTime }}</td>
             <td>{{ appointment.PaymentMethod }}</td>
             <td>{{ appointment.TotalPrice }}</td>
           </tr>

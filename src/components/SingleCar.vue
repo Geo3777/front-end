@@ -127,28 +127,29 @@
                   <label for="datetimepicker1" class="lead"
                     >Car Delivery Time</label
                   >
-                  <input
-                    class="bg-dmistic text-light w-100 form-control p-2"
-                    type="datetime-local"
-                    style="outline: none"
-                    id="datetimepicker1"
+                  <Datepicker
                     v-model="appointment.deliveryTime"
-                    @change="payment"
-                  />
+                    :minDate="new Date()"
+                    dark
+                  ></Datepicker>
                 </div>
                 <div class="form-group py-2">
                   <label for="datetimepicker2" class="lead"
                     >Car Pick-Up Time</label
                   >
-                  <input
-                    class="bg-dmistic text-light w-100 form-control p-2"
-                    type="datetime-local"
-                    style="outline: none"
-                    id="datetimepicker2"
+                  <Datepicker
                     v-model="appointment.pickupTime"
-                    @change="payment"
-                  />
+                    :minDate="new Date()"
+                    dark
+                  ></Datepicker>
                 </div>
+                <button
+                  class="btn btn-warning mt-2"
+                  type="button"
+                  @click="payment"
+                >
+                  Calculate Price
+                </button>
               </section>
               <hr />
               <!-- payment -->
@@ -258,6 +259,8 @@
 <script>
 import db from "../fb";
 import auth from "../auth";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 function getRandomId() {
   var min = 0;
   var max = 100000;
@@ -291,9 +294,12 @@ export default {
         pickupTime: "",
         paymentMethod: "cash",
         totalPrice: "",
+        displayDeliveryTime: "",
+        displayPickupTime: "",
       },
     };
   },
+  components: { Datepicker },
   methods: {
     check() {
       if (this.isSignedIn == false) {
@@ -301,6 +307,7 @@ export default {
       }
     },
     payment() {
+      console.log("changed");
       let date1 = new Date(this.appointment.deliveryTime);
       let date11 = new Date(
         date1.getFullYear(),
@@ -325,6 +332,36 @@ export default {
       }
     },
     formSubmit() {
+      var todate1 = new Date(this.appointment.deliveryTime).getDate();
+      var tomonth1 = new Date(this.appointment.deliveryTime).getMonth() + 1;
+      var toyear1 = new Date(this.appointment.deliveryTime).getFullYear();
+      var tohour1 = new Date(this.appointment.deliveryTime).getHours();
+      var tominute1 = new Date(this.appointment.deliveryTime).getMinutes();
+      this.appointment.displayDeliveryTime =
+        todate1 +
+        "/" +
+        tomonth1 +
+        "/" +
+        toyear1 +
+        " " +
+        tohour1 +
+        ":" +
+        tominute1;
+      var todate2 = new Date(this.appointment.pickupTime).getDate();
+      var tomonth2 = new Date(this.appointment.pickupTime).getMonth() + 1;
+      var toyear2 = new Date(this.appointment.pickupTime).getFullYear();
+      var tohour2 = new Date(this.appointment.pickupTime).getHours();
+      var tominute2 = new Date(this.appointment.pickupTime).getMinutes();
+      this.appointment.displayPickupTime =
+        todate2 +
+        "/" +
+        tomonth2 +
+        "/" +
+        toyear2 +
+        " " +
+        tohour2 +
+        ":" +
+        tominute2;
       const newId = getRandomId();
       db.collection("appointments")
         .doc(`${newId}`)
@@ -338,6 +375,8 @@ export default {
           TotalPrice: this.appointment.totalPrice,
           UserId: this.appointment.userId,
           UserName: this.appointment.userName,
+          DisplayDeliveryTime: this.appointment.displayDeliveryTime,
+          DisplayPickUpTime: this.appointment.displayPickupTime,
           id: newId,
         })
         .then(
@@ -357,7 +396,6 @@ export default {
   created() {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         this.isSignedIn = true;
         this.appointment.userId = user.uid;
         this.appointment.userName = user.displayName;

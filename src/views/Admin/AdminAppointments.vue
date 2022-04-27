@@ -168,7 +168,6 @@ export default {
       },
       car: {},
       message: "Add An Appointment",
-      date: null,
     };
   },
   components: { Datepicker },
