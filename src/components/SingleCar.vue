@@ -130,6 +130,7 @@
                   <Datepicker
                     v-model="appointment.deliveryTime"
                     :minDate="new Date()"
+                    :disabledDates="dates"
                     dark
                   ></Datepicker>
                 </div>
@@ -140,6 +141,7 @@
                   <Datepicker
                     v-model="appointment.pickupTime"
                     :minDate="new Date()"
+                    :disabledDates="dates"
                     dark
                   ></Datepicker>
                 </div>
@@ -266,6 +268,20 @@ function getRandomId() {
   var max = 100000;
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
+function getDates(startDate, stopDate) {
+  var dateArray = new Array();
+  var currentDate = startDate;
+  while (currentDate <= stopDate) {
+    dateArray.push(new Date(currentDate));
+    currentDate = currentDate.addDays(1);
+  }
+  return dateArray;
+}
 export default {
   props: {
     carID: Number,
@@ -297,6 +313,8 @@ export default {
         displayDeliveryTime: "",
         displayPickupTime: "",
       },
+      dates: [],
+      infos: {},
     };
   },
   components: { Datepicker },
@@ -305,9 +323,27 @@ export default {
       if (this.isSignedIn == false) {
         alert("You need to Sign In in order to rent a car");
       }
+      var docRef = db.collection("disabledDates").doc(`${this.carID}`);
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.infos = doc.data();
+            this.dates = this.infos.Dates;
+            console.log(new Date(this.dates[0].seconds * 1000));
+            this.dates = this.dates.map(
+              (date) => new Date(date.seconds * 1000)
+            );
+            console.log(this.dates);
+          } else {
+            console.log("No such document!");
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
     },
     payment() {
-      console.log("changed");
       let date1 = new Date(this.appointment.deliveryTime);
       let date11 = new Date(
         date1.getFullYear(),
@@ -332,6 +368,11 @@ export default {
       }
     },
     formSubmit() {
+      var timeArray = getDates(
+        new Date(this.appointment.deliveryTime),
+        new Date(this.appointment.pickupTime)
+      );
+      console.log(timeArray);
       var todate1 = new Date(this.appointment.deliveryTime).getDate();
       var tomonth1 = new Date(this.appointment.deliveryTime).getMonth() + 1;
       var toyear1 = new Date(this.appointment.deliveryTime).getFullYear();
@@ -380,6 +421,11 @@ export default {
           id: newId,
         })
         .then(
+          db.collection("disabledDates").doc(`${this.carID}`).set({
+            Dates: timeArray,
+          })
+        )
+        .then(
           (this.appointment.carId = ""),
           (this.appointment.deliveryAddress = ""),
           (this.appointment.pickupAddress = ""),
@@ -387,8 +433,6 @@ export default {
           (this.appointment.pickupTime = ""),
           (this.appointment.paymentMethod = ""),
           (this.appointment.totalPrice = ""),
-          (date1 = ""),
-          (date2 = ""),
           this.$refs.aForm.reset()
         );
     },
