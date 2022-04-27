@@ -78,6 +78,7 @@ export default {
         });
     },
   },
+
   created() {
     auth.onAuthStateChanged((user) => {
       if (user) {

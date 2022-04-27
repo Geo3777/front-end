@@ -56,23 +56,21 @@
       </div>
       <div class="form-group">
         <label class="lead">Car Delivery Time</label>
-        <input
-          class="bg-dmistic text-light form-control"
-          type="datetime-local"
-          style="outline: none"
+        <Datepicker
           v-model="appointment.deliveryTime"
-          min="2022-04-27T10:00"
-        />
+          :minDate="new Date()"
+          dark
+        ></Datepicker>
       </div>
       <div class="form-group">
         <label class="lead">Car Pick-Up Time</label>
-        <input
-          class="bg-dmistic text-light form-control"
-          type="datetime-local"
-          style="outline: none"
+        <Datepicker
           v-model="appointment.pickupTime"
-        />
+          :minDate="new Date()"
+          dark
+        ></Datepicker>
       </div>
+
       <div class="form-group">
         <label class="lead">Payment Method</label>
         <input
@@ -114,8 +112,8 @@
             <td>{{ appointment.UserName }}</td>
             <td>{{ appointment.DeliveryAddress }}</td>
             <td>{{ appointment.PickUpAddress }}</td>
-            <td>{{ appointment.DeliveryTime }}</td>
-            <td>{{ appointment.PickUpTime }}</td>
+            <td>{{ appointment.DisplayDeliveryTime }}</td>
+            <td>{{ appointment.DisplayPickUpTime }}</td>
             <td>{{ appointment.PaymentMethod }}</td>
             <td>{{ appointment.TotalPrice }}</td>
             <td>
@@ -143,6 +141,8 @@
 
 <script>
 import db from "../../fb";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 function getRandomId() {
   var min = 0;
   var max = 100000;
@@ -163,14 +163,18 @@ export default {
         pickupTime: "",
         paymentMethod: "",
         totalPrice: "",
+        displayDeliveryTime: "",
+        displayPickupTime: "",
       },
       car: {},
       message: "Add An Appointment",
-      currentDate: "",
+      date: null,
     };
   },
+  components: { Datepicker },
   methods: {
     formSubmit() {
+      //calculam diferenta zilelor fara ora
       let date1 = new Date(this.appointment.deliveryTime);
       let date11 = new Date(
         date1.getFullYear(),
@@ -185,6 +189,37 @@ export default {
       );
       let diffTime = Math.abs(date22 - date11);
       let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      //convertim datele din timestamp in date
+      var todate1 = new Date(this.appointment.deliveryTime).getDate();
+      var tomonth1 = new Date(this.appointment.deliveryTime).getMonth() + 1;
+      var toyear1 = new Date(this.appointment.deliveryTime).getFullYear();
+      var tohour1 = new Date(this.appointment.deliveryTime).getHours();
+      var tominute1 = new Date(this.appointment.deliveryTime).getMinutes();
+      this.appointment.displayDeliveryTime =
+        todate1 +
+        "/" +
+        tomonth1 +
+        "/" +
+        toyear1 +
+        " " +
+        tohour1 +
+        ":" +
+        tominute1;
+      var todate2 = new Date(this.appointment.pickupTime).getDate();
+      var tomonth2 = new Date(this.appointment.pickupTime).getMonth() + 1;
+      var toyear2 = new Date(this.appointment.pickupTime).getFullYear();
+      var tohour2 = new Date(this.appointment.pickupTime).getHours();
+      var tominute2 = new Date(this.appointment.pickupTime).getMinutes();
+      this.appointment.displayPickupTime =
+        todate2 +
+        "/" +
+        tomonth2 +
+        "/" +
+        toyear2 +
+        " " +
+        tohour2 +
+        ":" +
+        tominute2;
       var docRef = db.collection("cars").doc(`${this.appointment.carId}`);
       docRef
         .get()
@@ -208,6 +243,8 @@ export default {
                   TotalPrice: this.appointment.totalPrice,
                   UserId: this.appointment.userId,
                   UserName: this.appointment.userName,
+                  DisplayDeliveryTime: this.appointment.displayDeliveryTime,
+                  DisplayPickUpTime: this.appointment.displayPickupTime,
                   id: newId,
                 })
                 .then(
@@ -239,6 +276,8 @@ export default {
                   TotalPrice: parseInt(this.appointment.totalPrice, 10),
                   UserId: this.appointment.userId,
                   UserName: this.appointment.userName,
+                  DisplayDeliveryTime: this.appointment.displayDeliveryTime,
+                  DisplayPickUpTime: this.appointment.displayPickupTime,
                   id: this.appointment.id,
                 })
                 .then(
