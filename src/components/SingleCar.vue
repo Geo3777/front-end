@@ -130,7 +130,7 @@
                   <Datepicker
                     v-model="appointment.deliveryTime"
                     :minDate="new Date()"
-                    :disabledDates="dates"
+                    :disabledDates="finalDates"
                     dark
                   ></Datepicker>
                 </div>
@@ -141,7 +141,7 @@
                   <Datepicker
                     v-model="appointment.pickupTime"
                     :minDate="new Date()"
-                    :disabledDates="dates"
+                    :disabledDates="finalDates"
                     dark
                   ></Datepicker>
                 </div>
@@ -315,6 +315,8 @@ export default {
       },
       dates: [],
       infos: {},
+      finalDates: [],
+      array: [],
     };
   },
   components: { Datepicker },
@@ -331,7 +333,7 @@ export default {
             this.infos = doc.data();
             this.dates = this.infos.Dates;
             console.log(new Date(this.dates[0].seconds * 1000));
-            this.dates = this.dates.map(
+            this.finalDates = this.dates.map(
               (date) => new Date(date.seconds * 1000)
             );
             console.log(this.dates);
@@ -421,8 +423,10 @@ export default {
           id: newId,
         })
         .then(
+          (this.array = this.dates.concat(timeArray)),
+          console.log(this.dates),
           db.collection("disabledDates").doc(`${this.carID}`).set({
-            Dates: timeArray,
+            Dates: this.array,
           })
         )
         .then(
