@@ -38,6 +38,16 @@
         </tbody>
       </table>
     </div>
+    <div class="d-grid gap-2">
+      <button
+        class="btn btn-danger"
+        v-if="allowDelete"
+        @click="deleteAccount"
+        type="button"
+      >
+        Delete Account
+      </button>
+    </div>
   </section>
 </template>
 
@@ -50,10 +60,36 @@ export default {
       isSignedIn: false,
       appointments: [],
       userId: "",
+      allowDelete: false,
     };
+  },
+  methods: {
+    deleteAccount() {
+      const user = auth.currentUser;
+      const id = user.uid;
+      user
+        .delete()
+        .then(() => {
+          db.collection("users").doc(`${id}`).delete();
+        })
+        .catch((error) => {
+          var errorMessage = error.message;
+          alert(errorMessage);
+        });
+    },
   },
   created() {
     auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.allowDelete = true;
+        if (user.email === "admin@admin.com") {
+          this.allowDelete = false;
+        } else {
+          this.allowDelete = true;
+        }
+      } else {
+        this.allowDelete = false;
+      }
       if (user) {
         this.isSignedIn = true;
         this.userId = user.uid;
