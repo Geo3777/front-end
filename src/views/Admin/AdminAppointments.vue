@@ -61,6 +61,7 @@
           type="datetime-local"
           style="outline: none"
           v-model="appointment.deliveryTime"
+          min="2022-04-27T10:00"
         />
       </div>
       <div class="form-group">
@@ -165,6 +166,7 @@ export default {
       },
       car: {},
       message: "Add An Appointment",
+      currentDate: "",
     };
   },
   methods: {
