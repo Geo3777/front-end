@@ -57,13 +57,25 @@
           </div>
           <div class="col-md-2 col-lg-3 d-flex flex-column hovering">
             <h6 class="text-uppercase fw-bold">Social Media</h6>
-            <a href="" class="mt-4 text-muted">
+            <a
+              href="https://www.facebook.com/profile.php?id=100081015001755"
+              target="_blank"
+              class="mt-4 text-muted"
+            >
               <i class="fa-brands fa-facebook fa-2xl"></i>
             </a>
-            <a href="" class="mt-4 text-muted">
+            <a
+              href="https://twitter.com/RoyalCarRenta"
+              target="_blank"
+              class="mt-4 text-muted"
+            >
               <i class="fab fa-twitter fa-2xl"></i>
             </a>
-            <a href="" class="my-4 text-muted">
+            <a
+              href="https://www.instagram.com/royal.car.rental/"
+              target="_blank"
+              class="my-4 text-muted"
+            >
               <i class="fab fa-instagram fa-2xl"></i>
             </a>
           </div>
