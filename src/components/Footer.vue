@@ -50,7 +50,7 @@
             </p>
             <p>
               <i class="fas fa-envelope me-3"></i>
-              royalcarrental@gmail.com
+              royalcarrental37@gmail.com
             </p>
             <p><i class="fas fa-phone me-3"></i> (+4) 0747923662</p>
             <p><i class="fas fa-print me-3"></i> 0269838561</p>

@@ -30,7 +30,7 @@
             </div>
             <div class="detaill text-light d-flex px-2 py-1">
               <i class="fa-solid fa-envelope fa-lg align-self-start mt-3"></i>
-              <p class="align-self-end ms-3 lead">royalcarrental@gmail.com</p>
+              <p class="align-self-end ms-3 lead">royalcarrental37@gmail.com</p>
             </div>
             <div class="detaill text-light d-flex px-2 py-1">
               <i
@@ -45,13 +45,14 @@
         <div class="col-lg-4 bg-lmistic h-100">
           <div class="container">
             <h1 class="text-warning">Connect With Us</h1>
-            <form class="text-light">
+            <form class="text-light" id="formm">
               <div class="form-group w-75 px-2">
                 <label class="lead" for="name">Your Name</label>
                 <input
                   type="text"
                   class="form-control bg-dark text-light"
-                  id="name"
+                  name="name"
+                  v-model="name"
                   placeholder="Adam Smith"
                 />
               </div>
@@ -60,6 +61,8 @@
                 <input
                   type="email"
                   class="form-control bg-dark text-light"
+                  name="email"
+                  v-model="email"
                   id="mail"
                   placeholder="name@example.com"
                 />
@@ -69,11 +72,19 @@
                 <textarea
                   class="form-control bg-dark text-light"
                   id="text"
+                  name="message"
+                  v-model="message"
                   rows="3"
                 ></textarea>
               </div>
               <div class="d-grid gap-2 w-75 px-2 my-2">
-                <button class="btn btn-warning py-1" type="button">Send</button>
+                <button
+                  class="btn btn-warning py-1"
+                  @click="sendEmail"
+                  type="button"
+                >
+                  Send
+                </button>
               </div>
             </form>
           </div>
@@ -84,7 +95,39 @@
 </template>
 
 <script>
-export default {};
+import emailjs from "emailjs-com";
+export default {
+  data() {
+    return {
+      name: "",
+      email: "",
+      message: "",
+    };
+  },
+  methods: {
+    sendEmail(e) {
+      try {
+        emailjs.sendForm(
+          "service_16jnjal",
+          "template_uxc12ml",
+          document.querySelector("#formm"),
+          "RDmaEC2UOmHWSv1tr",
+          {
+            name: this.name,
+            email: this.email,
+            message: this.message,
+          }
+        );
+      } catch (error) {
+        console.log({ error });
+      }
+      // Reset form field
+      this.name = "";
+      this.email = "";
+      this.message = "";
+    },
+  },
+};
 </script>
 
 <style scoped>
