@@ -42,10 +42,12 @@ export default {
   },
   methods: {
     signIn() {
+      //metoda de la firebase pentru sign in cu email si parola
       auth
         .signInWithEmailAndPassword(this.user.email, this.user.password)
         .then((cred) => {
           console.log(cred);
+          //dupa logare ne redirecteaza catre home
           this.$router.push({ name: "home" });
         })
         .catch((error) => {

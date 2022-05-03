@@ -84,8 +84,11 @@ export default {
     };
   },
   methods: {
+    //metoda de inregistrare a unui nou utilizator
     register() {
+      //putem trece mai departe doar daca utlizitorul a confirmat corect parola
       if (this.user.password === this.user.confirmPassword) {
+        //metoda de la firebase pentru inregistrare cu email si parola
         auth
           .createUserWithEmailAndPassword(this.user.email, this.user.password)
           .then((cred) => {
@@ -94,6 +97,7 @@ export default {
                 displayName: this.user.fullName,
               })
               .then(() => {
+                //aevm si o baza de date creata pentru noi sa vedem utilizatorii si introducem datele si in ea
                 db.collection("users").doc(`${cred.user.uid}`).set({
                   Email: this.user.email,
                   FullName: this.user.fullName,
@@ -104,6 +108,7 @@ export default {
               .then(() => {
                 console.log(cred);
                 alert("registration succesful");
+                //ne redirecteaza catre pagina de start logati in contul utilizatorului creat
                 this.$router.push({ name: "home" });
               });
           })

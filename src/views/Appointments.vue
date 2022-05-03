@@ -67,9 +67,11 @@ export default {
     deleteAccount() {
       const user = auth.currentUser;
       const id = user.uid;
+      //functie de la firebase care sterge contul utilizatorului actual
       user
         .delete()
         .then(() => {
+          //stergem utilizatorul si din baza noastra de date
           db.collection("users").doc(`${id}`).delete();
         })
         .catch((error) => {
@@ -80,9 +82,12 @@ export default {
   },
 
   created() {
+    //functie de la firebase care recunoaste constant user-ul
     auth.onAuthStateChanged((user) => {
       if (user) {
+        //daca esti logat iti poti sterge contul
         this.allowDelete = true;
+        //daca userul este admin nu are voie sa isi stearga contul
         if (user.email === "admin@admin.com") {
           this.allowDelete = false;
         } else {
@@ -94,6 +99,7 @@ export default {
       if (user) {
         this.isSignedIn = true;
         this.userId = user.uid;
+        //functie care afiseaza din baza de date programari comenzile utilizatorului actual si asculta dupa modificari
         db.collection("appointments")
           .where("UserId", "==", this.userId)
           .onSnapshot((snap) => {

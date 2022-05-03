@@ -114,10 +114,13 @@ export default {
       isAdmin: false,
     };
   },
+
   methods: {
+    //metoda pentru schimbat colorii a navbarului
     updateScroll() {
       this.scrollPosition = window.scrollY;
     },
+    //metoda de sign out
     signOut() {
       auth.signOut().then(() => {
         console.log("signed out");
@@ -125,15 +128,19 @@ export default {
     },
   },
   mounted() {
+    //urmareste positia de scroll a utilizatorului
     window.addEventListener("scroll", this.updateScroll);
   },
   created() {
+    //functie de la firebase care recunoaste constant user-ul
     auth.onAuthStateChanged((user) => {
       if (user) {
+        //pentru v-if daca sa arate componentele ascunse din navbar si butonul de sign out
         this.isSignedIn = true;
         this.$store.state.isSignedIn = true;
         console.log(`Is signed in: ${this.isSignedIn}`);
         console.log(user);
+        //daca este admin utilizatorul sa poate accesa pagina de admin, altfe sa ramana ascunsa
         if (user.email === "admin@admin.com") {
           this.isAdmin = true;
           this.$store.state.isAdmin = true;

@@ -255,6 +255,7 @@ export default {
     appSingleCar: SingleCar,
   },
   methods: {
+    //resetarea filtrelor la valorile initiale
     resetFilters() {
       this.filters.priceRange.minPrice = 40;
       this.filters.priceRange.maxPrice = 300;
@@ -265,16 +266,25 @@ export default {
       this.filters.vehicleType.van = true;
       this.database();
     },
+    //selectam sa ne arate masinile dupa pret crescator si reapelam functia database
     priceAscending() {
       this.sorting = "asc";
       this.database();
     },
+    //selectam sa ne arate masinile dupa pret descrescator si reapelam functia database
     priceDescending() {
       this.sorting = "desc";
       this.database();
     },
     database() {
       //filtrele pentru checkbox-uri
+      //fiecare checkbox este legat de o variabila cu true sau false
+      //daca un checkbox este bifat(variabila este true) atunci introducem tipul masinii intr-un vector
+      //altfel lasam pe pozitia aia un spatiu gol
+      //la interogarea bazei de date folosim operatorul de tip "in"
+      //asta inseamna ca daca tipul masinii se afla in vectorul creat de noi, o afisam
+      //din pacate putem folosi interogari de tip "in" doar pe un field(limitare firebase)
+      //de aceea am asa putine filtre
       if (this.filters.vehicleType.sedan == true) {
         this.filters.vehicleType.vehicleTypes[0] = "Sedan";
       } else {
@@ -301,7 +311,7 @@ export default {
         this.filters.vehicleType.vehicleTypes[4] = "";
       }
 
-      //interogare baza de date
+      //interogare baza de date dupa filtre si sorting
       db.collection("cars")
         .where("Price", ">=", parseInt(this.filters.priceRange.minPrice, 10))
         .where("Price", "<=", parseInt(this.filters.priceRange.maxPrice, 10))
@@ -316,6 +326,7 @@ export default {
     },
   },
   created() {
+    //functie care afiseaza din baza de date masini cu filtre si sorting si asculta dupa modificari
     this.database();
   },
 };

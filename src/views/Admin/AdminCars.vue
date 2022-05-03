@@ -167,6 +167,7 @@ export default {
     };
   },
   methods: {
+    //functie care converteste o imagine in url pentru a fi stocata in baza de date
     encodeImageFileAsURL() {
       const file = document.querySelector("input[type=file]").files[0];
       const reader = new FileReader();
@@ -229,6 +230,7 @@ export default {
             id: this.car.id,
           })
           .then(
+            //golim formularul
             (this.car.id = ""),
             (this.car.CarBrandAndModel = ""),
             (this.car.Price = ""),
@@ -243,15 +245,18 @@ export default {
           );
       }
     },
+    //stergem masina dupa id
     deleteCar(id) {
       db.collection("cars").doc(`${id}`).delete();
     },
+    //atribuim obiectului cu care lucram obiectul din baza de date pe care vrem sa il modificam
     updateCar(car) {
       this.car = car;
       this.message = "Edit A Car";
     },
   },
   created() {
+    //functie care afiseaza din baza de date masini si asculta dupa modificari
     db.collection("cars").onSnapshot((snap) => {
       this.cars = [];
       snap.forEach((doc) => {

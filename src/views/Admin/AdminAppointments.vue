@@ -153,7 +153,7 @@ function getRandomId() {
   var max = 100000;
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
-//pentru a crea un vector de date
+//pentru a crea un vector de date din doua date
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -196,6 +196,7 @@ export default {
   },
   components: { Datepicker },
   methods: {
+    //verifica datele indisponibile accesand baza de date pentru date indisponible pentru masina respectiva
     check() {
       var docRef = db
         .collection("disabledDates")
@@ -207,6 +208,7 @@ export default {
             this.infos = doc.data();
             this.dates = this.infos.Dates;
             console.log(new Date(this.dates[0].seconds * 1000));
+            //convertim din timestamp in date
             this.finalDates = this.dates.map(
               (date) => new Date(date.seconds * 1000)
             );
@@ -219,27 +221,34 @@ export default {
           console.log("Error getting document:", error);
         });
     },
+    //introducem sau modificam in baza de date pentru programari
     formSubmit() {
-      //calculam diferenta zilelor fara ora
+      //facem un vector de date din date de livrare si ridicare a masinilor pentru a fi introduse in baza de date
       var timeArray = getDates(
         new Date(this.appointment.deliveryTime),
         new Date(this.appointment.pickupTime)
       );
+      //data selectata din datepicker este in timestamp deci convertim la date-time
       let date1 = new Date(this.appointment.deliveryTime);
+      //convertim din date-time in date simplu
       let date11 = new Date(
         date1.getFullYear(),
         date1.getMonth(),
         date1.getDate()
       );
+      //data selectata din datepicker este in timestamp deci convertim la date-time
       let date2 = new Date(this.appointment.pickupTime);
+      //convertim din date-time in date simplu
       let date22 = new Date(
         date2.getFullYear(),
         date2.getMonth(),
         date2.getDate()
       );
+      //diferenta dintre date
       let diffTime = Math.abs(date22 - date11);
+      //convertim de secunde in zile
       let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-      //convertim datele din timestamp in date
+      // creeam in string-uri din timestamp care vor fi mai usor de citit de utilizatori
       var todate1 = new Date(this.appointment.deliveryTime).getDate();
       var tomonth1 = new Date(this.appointment.deliveryTime).getMonth() + 1;
       var toyear1 = new Date(this.appointment.deliveryTime).getFullYear();
@@ -270,6 +279,7 @@ export default {
         tohour2 +
         ":" +
         tominute2;
+      //luam pretul pe zi de la masina respectiva pentru a calcula pretul total a comenzii
       var docRef = db.collection("cars").doc(`${this.appointment.carId}`);
       docRef
         .get()
@@ -277,6 +287,7 @@ export default {
           if (doc.exists) {
             //daca exista masina facem programarea
             this.car = doc.data();
+            //calculam pretul total
             this.appointment.totalPrice = diffDays * this.car.Price;
             const newId = getRandomId();
             //Daca nu are ID creem o programare
@@ -298,8 +309,10 @@ export default {
                   id: newId,
                 })
                 .then(
+                  //concatenam vectorul de date selectate pentru aceasta programare cu vectorul cu toate datele programate
                   (this.array = this.dates.concat(timeArray)),
                   console.log(this.dates),
+                  //si updatam baza de date pentru date programate
                   db
                     .collection("disabledDates")
                     .doc(`${this.appointment.carId}`)
@@ -307,6 +320,7 @@ export default {
                       Dates: this.array,
                     })
                 )
+                //golim formularul
                 .then(
                   (this.appointment.id = ""),
                   (this.appointment.carId = ""),
@@ -341,8 +355,10 @@ export default {
                   id: this.appointment.id,
                 })
                 .then(
+                  //concatenam vectorul de date selectate pentru aceasta programare cu vectorul cu toate datele programate
                   (this.array = this.dates.concat(timeArray)),
                   console.log(this.dates),
+                  //si updatam baza de date pentru date programate
                   db
                     .collection("disabledDates")
                     .doc(`${this.appointment.carId}`)
@@ -373,6 +389,7 @@ export default {
           alert(error.message);
         });
     },
+    //atribuim obiectului cu care lucram obiectul din baza de date pe care vrem sa il modificam
     updateAppointment(appointment) {
       this.appointment.carId = appointment.CarId;
       this.appointment.userId = appointment.UserId;
@@ -385,11 +402,13 @@ export default {
       this.appointment.id = parseInt(appointment.id);
       this.message = "Edit An Appointment";
     },
+    //stergem o programare dupa ID
     deleteAppointment(id) {
       db.collection("appointments").doc(`${id}`).delete();
     },
   },
   created() {
+    //functie care afiseaza din baza de date programari si asculta dupa modificari
     db.collection("appointments").onSnapshot((snap) => {
       this.appointments = [];
       snap.forEach((doc) => {

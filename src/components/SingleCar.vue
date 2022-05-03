@@ -127,6 +127,7 @@
                   <label for="datetimepicker1" class="lead"
                     >Car Delivery Time</label
                   >
+                  <p></p>
                   <Datepicker
                     v-model="appointment.deliveryTime"
                     :minDate="new Date()"
@@ -263,11 +264,14 @@ import db from "../fb";
 import auth from "../auth";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+//genereaza id-uri random
 function getRandomId() {
   var min = 0;
   var max = 100000;
-  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+//functii care creeaza vectori de date intre doua date
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -283,6 +287,7 @@ function getDates(startDate, stopDate) {
   return dateArray;
 }
 export default {
+  // date provenite de la Cars.vue pentru fiecare instanta de masina
   props: {
     carID: Number,
     carCarBrandAndModel: String,
@@ -320,19 +325,25 @@ export default {
     };
   },
   components: { Datepicker },
+  //metoda care verifica daca utilizatorul este logat si apoi datele disponibile pentru masini
   methods: {
     check() {
+      //doar daca esti logat poti inchira o masina
       if (this.isSignedIn == false) {
         alert("You need to Sign In in order to rent a car");
       }
+      //altfel daca esti logat si apesi sa cauti o masina, programul cauta automat datele disponibile
+      //extragem de pe firebase datele ocupate pentru masina respectiva
       var docRef = db.collection("disabledDates").doc(`${this.carID}`);
       docRef
         .get()
         .then((doc) => {
           if (doc.exists) {
+            //primim raspunsul de la firebase
             this.infos = doc.data();
+            //extragem doar ce ne trebe
             this.dates = this.infos.Dates;
-            console.log(new Date(this.dates[0].seconds * 1000));
+            //convertim din Timestamp in Date
             this.finalDates = this.dates.map(
               (date) => new Date(date.seconds * 1000)
             );
@@ -345,23 +356,32 @@ export default {
           console.log("Error getting document:", error);
         });
     },
+    //calculeaza pretul final in functie de durata inchirierii
     payment() {
+      //data selectata din datepicker este in timestamp deci convertim la date-time
       let date1 = new Date(this.appointment.deliveryTime);
+      //convertim din date-time in date simplu
       let date11 = new Date(
         date1.getFullYear(),
         date1.getMonth(),
         date1.getDate()
       );
+      //data selectata din datepicker este in timestamp deci convertim la date-time
       let date2 = new Date(this.appointment.pickupTime);
+      //convertim din date-time in date simplu
       let date22 = new Date(
         date2.getFullYear(),
         date2.getMonth(),
         date2.getDate()
       );
+      //diferenta dintre date
       let diffTime = Math.abs(date22 - date11);
+      //convertim de secunde in zile
       let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      //calculam pretul final
       this.appointment.totalPrice = diffDays * this.carPrice;
     },
+    //decide ce modalitate de plata a fost aleasa in functie de switch
     paymentMethodF() {
       if (this.cardPayment == false) {
         this.appointment.paymentMethod = "cash";
@@ -369,12 +389,14 @@ export default {
         this.appointment.paymentMethod = "card";
       }
     },
+    //introducem datele comenzii in firebase
     formSubmit() {
+      //facem un vector de date din date de livrare si ridicare a masinilor pentru a fi introduse in baza de date
       var timeArray = getDates(
         new Date(this.appointment.deliveryTime),
         new Date(this.appointment.pickupTime)
       );
-      console.log(timeArray);
+      // creeam un string-uri din timestamp care vor fi mai usor de citit de utilizatori
       var todate1 = new Date(this.appointment.deliveryTime).getDate();
       var tomonth1 = new Date(this.appointment.deliveryTime).getMonth() + 1;
       var toyear1 = new Date(this.appointment.deliveryTime).getFullYear();
@@ -406,6 +428,7 @@ export default {
         ":" +
         tominute2;
       const newId = getRandomId();
+      //introducem comanda in baza de date pentru comenzi
       db.collection("appointments")
         .doc(`${newId}`)
         .set({
@@ -423,13 +446,16 @@ export default {
           id: newId,
         })
         .then(
+          //concatenam vectorul de date selectate pentru aceasta programare cu vectorul cu toate datele programate
           (this.array = this.dates.concat(timeArray)),
           console.log(this.dates),
+          //si updatam baza de date pentru date programate
           db.collection("disabledDates").doc(`${this.carID}`).set({
             Dates: this.array,
           })
         )
         .then(
+          //golim formularul
           (this.appointment.carId = ""),
           (this.appointment.deliveryAddress = ""),
           (this.appointment.pickupAddress = ""),
@@ -441,6 +467,7 @@ export default {
         );
     },
   },
+  //ascultam daca userul este logat
   created() {
     auth.onAuthStateChanged((user) => {
       if (user) {
